@@ -26,9 +26,7 @@
       (page css/bootstrap.min.css 
             (include-template 
               #:command-char #\$
-              "css/bootstrap.min.css")   
-            #;
-            (file->string "css/bootstrap.min.css")))
+              "css/bootstrap.min.css")   ))
     (index
       (page index.html
             (html
