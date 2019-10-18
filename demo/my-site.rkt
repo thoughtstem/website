@@ -1,28 +1,54 @@
 #lang racket
 
-(require website)
+(require website 
+         (only-in 2htdp/image
+                  circle))
 
 (provide my-site)
 
 
-(define index
-  (page (list "index.html")
-        (html
-          (body
-            (h1 "HI")
-            #;
-            (a href: "hi")
-            (make-element 'a `(,(cons 'href "/blog/post1.html")) "Blog Post 1") 
-            ))))
-
-(define blog-post1
-  (page (list "blog" "post1.html")
-        (html
-          (body
-            (h1 "This is a post")))))
+(define (blog-page title . stuff)
+  (html
+    (body
+      (a 'href: "/" "Back Home")
+      title
+      stuff
+      )))
 
 (define my-site
-  (list index blog-post1))
+  (site
+    (index
+      (page index.html
+            (html
+              (body
+                (h1 "HI")
+                (link-to blog-post1 
+                         "Blog Post 1 yay")))))
+
+    (blog-post1
+      (page blog/first-post.html
+            (blog-page
+              (h1 "This is a post!")    
+              (write-image (circle 40 'solid 'red))
+              (link-to blog-post2 "Second post"))))
+
+    (blog-post2
+      (page blog/second-post.html
+            (blog-page
+              (h1 "This is a post!")     
+              (write-image (circle 40 'solid 'green))
+              (link-to blog-post3 "Last post..."))))
+
+    (blog-post3
+      (page blog/third-post.html
+            (blog-page
+              (h1 "This is a post!")       
+              (write-image (circle 40 'solid 'blue))
+              (link-to blog-post1 "Back to beginning")) ))))
+
+
+;TODO:
+;  * Add missing attributes, src:, href:, etc...
 
 
 
