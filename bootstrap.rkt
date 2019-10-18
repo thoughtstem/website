@@ -7,37 +7,40 @@
          row
          nav-item
          nav-link
-         include-js
-         include-css
+         (all-from-out "./bootstrap/buttons.rkt")
+         (all-from-out "./bootstrap/cards.rkt")
          (all-from-out "./bootstrap/col.rkt")
          (all-from-out "./main.rkt"))
 
 (require (except-in "./main.rkt" col)
+         "./bootstrap/buttons.rkt"
+         "./bootstrap/cards.rkt"
          "./bootstrap/col.rkt"
+         "./util.rkt"
          racket/runtime-path)
 
 (define-runtime-path js "bootstrap/js")
 (define-runtime-path css "bootstrap/css")
 
-(define (include-js)
+(define (include-bootstrap-js)
   (list 
-    (script 'src: "/js/jquery-3.2.1.slim.min.js")
-    (script 'src: "/js/bootstrap.bundle.min.js")))
+    (include-js "/js/jquery-3.2.1.slim.min.js")
+    (include-js "/js/bootstrap.bundle.min.js")))
 
-(define (include-css)
+(define (include-bootstrap-css)
   (list 
-    (link 'rel: "stylesheet" 'type: "text/css" 'href: "/css/bootstrap.min.css")  ))
+    (include-css "/css/bootstrap.min.css")))
 
 (define (content #:head (head-content '()) 
                            .  body-content)
   (html
     (head
       head-content
-      (include-css))
+      (include-bootstrap-css))
 
     (body
       body-content
-      (include-js))))
+      (include-bootstrap-js))))
 
 (define (navbar #:brand (brand "BRAND/LOGO HERE")
                 . content)

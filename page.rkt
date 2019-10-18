@@ -3,7 +3,8 @@
 (provide (except-out (struct-out page)
                      page) 
          (rename-out [make-page page])
-         site) 
+         site
+         page->path) 
 
 (struct page (path content))
 
@@ -16,3 +17,7 @@
     (list id ...)))
 
 
+(define (page->path p)
+  (string-join 
+    (page-path p)
+    "/"))

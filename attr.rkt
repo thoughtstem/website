@@ -2,17 +2,6 @@
 
 (provide get-attr class-join)
 
-(define-syntax-rule
-  (define/provide-attr type)
-  (begin
-    (provide type)
-    (define type 'type)))
-
-(define/provide-attr class:)
-(define/provide-attr href:)
-(define/provide-attr src:)
-(define/provide-attr style:)
-
 (define (get-attr attr content)
   (define i (index-of content attr)) 
 
@@ -25,3 +14,17 @@
 
 
 
+
+(define-syntax-rule
+  (define/provide-attr type)
+  (begin
+    (provide type)
+    (define type 'type)))
+
+(define/provide-attr class:)
+(define/provide-attr href:)
+(define/provide-attr src:)
+(define/provide-attr style:)
+(define/provide-attr id:)
+(define/provide-attr align:)
+(define/provide-attr type:)

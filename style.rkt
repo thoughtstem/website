@@ -44,6 +44,7 @@
 (define/provide-style border-left:)
 (define/provide-style border-right:)
 (define/provide-style border-bottom:)
+(define/provide-style border-radius:)
 
 
 
@@ -79,4 +80,7 @@
 (define/provide-style z-index:)
 
 
+(define/provide-style object-fit:)
+
+(define/provide-style clear:)
 

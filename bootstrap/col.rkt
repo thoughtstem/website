@@ -5,13 +5,10 @@
 (define-syntax-rule (define/provide-col type)
   (begin
     (provide type)
-    (define (type . content)
-      (apply div 
-        (flatten 
-          (list class: (class-join 
-                         (~a 'type)
-                         (get-attr class: content))
-                content))))))
+    (define-extensible-element
+      type
+      div
+      (class: (~a 'type) class-join))))
 
 
 
