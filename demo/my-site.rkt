@@ -12,8 +12,7 @@
     (body
       (a 'href: "/" "Back Home")
       title
-      stuff
-      )))
+      stuff)))
 
 (define my-site
   (site

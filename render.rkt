@@ -29,9 +29,13 @@
         (with-output-to-file path 
                              #:exists 'replace
                              (thunk
-                               (displayln 
-                                 (xml->string 
-                                   (preprocess (page-content p))))))))))
+                               (define c (page-content p))
+
+                               (if (string? c)
+                                 (displayln c)
+                                 (displayln 
+                                   (xml->string 
+                                     (preprocess (page-content p)))))))))))
 
 
 (define (preprocess content)
