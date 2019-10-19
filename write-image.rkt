@@ -6,15 +6,44 @@
 (require
   "./render.rkt"
   scribble/html/html
+  (only-in pict
+           pict->bitmap)
   (only-in 2htdp/image
+           image?
            save-svg-image)) 
 
 (define (write-image . content)
   (thunk
-    (define r (random 100000))
+    (define i (last content))
 
-    (save-svg-image (last content) (build-path (site-dir) (~a r ".svg")))
+    (define save-path
+      (save-image i))
 
     (apply img 
-           'src: (~a "/" r ".svg")   
+           'src: (~a "/" save-path)
            (drop-right content 1))))
+
+(define (save-image i)
+  (define r (random 100000))
+
+
+  (if (image? i)
+    (let* ([f (~a r ".svg")] 
+           [ path 
+             (build-path (site-dir) 
+                         f)])
+
+      (save-svg-image i path)
+      f)
+
+    (let* ([f (~a r ".png")]
+           [path 
+             (build-path (site-dir) 
+                         f)])
+      (save-pict i path 'png)
+      f)))
+
+(define (save-pict the-pict name kind)
+  (define bm (pict->bitmap the-pict))
+  (send bm save-file name kind))
+

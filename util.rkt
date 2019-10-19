@@ -5,7 +5,8 @@
          findf-element
          element?
          element->contents
-         query)
+         query
+         paras)
 
 (require scribble/html/html
          (only-in scribble/html/xml
@@ -39,6 +40,7 @@
 (define/contract (element->contents e)
   (-> (or/c string? element?)
       (or/c #f any/c))
+
   (if (string? e)
     #f
     (filter identity
@@ -85,17 +87,21 @@
         ">" ""))))
 
 (define/contract (findf-element q? elem)
-  (-> procedure? element? (or/c #f element?))
+  (-> procedure? element? 
+      (or/c #f element?))
 
   (if (q? elem)
     elem
-    (let ([contents (element->contents elem)])
+    (let ([contents 
+            (and 
+              (element? elem)
+              (element->contents elem))])
       (if (not contents)
         #f 
         (findf 
           identity
           (map (curry findf-element q?) 
-               (element->contents elem)))))))
+               contents))))))
 
 
 (module+ test
@@ -178,6 +184,14 @@
   (check-equal? 
     (findf-element
       (query div 'id: "yesme" 'class: "classy")
+      (div 
+        (thunk (p "NOT ME"))
+        (div 'id: "yesme" 'class: "classy")))
+    (div 'id: "yesme" 'class: "classy"))
+
+  (check-equal? 
+    (findf-element
+      (query div 'id: "yesme" 'class: "classy")
       (div
         (p "not me")
         (div 'id: "notme"
@@ -189,3 +203,14 @@
             (p "not me")))))
     (div 'id: "yesme" 'class: "classy")))
 
+(define (paras . ss)
+  (map maybe-p-ify ss))
+
+(define (lone-newline s)
+  (and (string? s)
+       (string=? "\n" s)))
+
+(define (maybe-p-ify s)
+  (if (lone-newline s)
+    (br)
+    s))
