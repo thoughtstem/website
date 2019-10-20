@@ -27,6 +27,30 @@
 
 
 
+@defstruct[page ([name (list-of string?)] [content element?])]{
+  A page is an abstraction of a file in a project.  For example:
 
+  @verbatim{
+    project:
+      index.html
+      css/
+        custom.css
+      js/
+        custom.js
+  }
+
+  This project would be represented as a site with three pages:
+
+  @codeblock{
+          (define project
+           (list
+            (page index.html ...)
+            (page css/custom.css ...)
+            (page js/custom.js ...)))
+  }
+ 
+  The actual files would be created later, with a call to @racket[render]. 
+  
+}
 
 
