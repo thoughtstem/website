@@ -3,12 +3,15 @@
          web-server/servlet-env)
  
 (define (my-app req)
-    (response/xexpr
-         `(html (head (title "Hello world!"))
-                (body (p "Hey out there!")))))
+    (response/xexpr 
+      `(html (head (title "Starter"))
+             (body (p "Welcome to website-preview")
+                   (a ([href "/index.html"])
+                      "Click to go to my site")))))
  
 (serve/servlet my-app
-               #:servlet-path "/"
+               #:server-root-path
+               (build-path "./")  
                #:extra-files-paths
                (list
                  (build-path "./")))
