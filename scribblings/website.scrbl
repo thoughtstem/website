@@ -1,6 +1,5 @@
 #lang scribble/manual
-@require[@for-label[website
-                    racket/base]]
+@require[@for-label[website]]
 
 @title{website}
 @author{thoughtstem}
