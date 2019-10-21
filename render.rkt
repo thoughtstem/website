@@ -3,7 +3,7 @@
 (provide render site-dir page-dir)
 
 (require "./page.rkt" 
-         (only-in "./link-to.rkt" path-prefix))
+         "./path-prefix.rkt")
 
 (require scribble/html/xml)
 
@@ -16,7 +16,6 @@
 
   (when (file-exists? prefix-file)
     (delete-file prefix-file))
-
 
   (when (path-prefix)
     (displayln "Writing site prefix")

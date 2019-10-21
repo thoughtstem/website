@@ -5,6 +5,7 @@
   (all-from-out scribble/html/xml)
   (all-from-out scribble/html/extra)
   (all-from-out web-server/templates)
+  (all-from-out "path-prefix.rkt") 
   (all-from-out "util.rkt") 
   (all-from-out "attr.rkt") 
   (all-from-out "style.rkt") 
@@ -20,6 +21,7 @@
 (require (except-in scribble/html/extra
                     map))
 (require web-server/templates)
+(require "path-prefix.rkt")
 (require "util.rkt")
 (require "attr.rkt")
 (require "style.rkt")

@@ -21,7 +21,7 @@
          "./bootstrap/cards.rkt"
          "./bootstrap/col.rkt"
          "./util.rkt"
-         (only-in "./link-to.rkt" add-path-prefix)
+         "./path-prefix.rkt"
          racket/runtime-path)
 
 (define-runtime-path js "bootstrap/js")
@@ -30,12 +30,12 @@
 
 (define (include-bootstrap-js)
   (list 
-    (include-js (add-path-prefix "/js/jquery-3.2.1.slim.min.js"))
-    (include-js (add-path-prefix "/js/bootstrap.bundle.min.js"))))
+    (include-js "/js/jquery-3.2.1.slim.min.js")
+    (include-js "/js/bootstrap.bundle.min.js" )))
 
 (define (include-bootstrap-css)
   (list 
-    (include-css (add-path-prefix "/css/bootstrap.min.css"))))
+    (include-css "/css/bootstrap.min.css" )))
 
 (define (content #:head (head-content '()) 
                  .  body-content)

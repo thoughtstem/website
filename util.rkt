@@ -11,7 +11,8 @@
 (require scribble/html/html
          (only-in scribble/html/xml
                   attribute?)
-         "./page.rkt")
+         "./page.rkt"
+         "./path-prefix.rkt")
 
 (define (get-path p)
   (if (page? p)
@@ -20,11 +21,11 @@
 
 (define (include-js src)
   (script 'src: 
-          (get-path src)))
+          (pathify (add-path-prefix (get-path src)))))
 
 (define (include-css href)
    (link 'rel: "stylesheet" 'type: "text/css" 'href: 
-         (get-path href)))
+         (pathify (add-path-prefix (get-path href)))))
 
 (define (element? x)
   (and (struct? x)

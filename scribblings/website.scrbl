@@ -104,6 +104,20 @@
   Or it can be a procedure that would return such a thing.  This can be useful in cases like @racket[write-img], which will write out an image file at @racket[render] time, and will return an @racket[img] @racket[element?] with the appropriate @racket[src:] attribute.
 }
 
+@defthing[attribute? symbol?]{
+  A symbol that ends in a colon.  When passed into a element constructor, it must be followed by a value.  This becomes the value on the rendered html element.
+
+  @codeblock{
+    (h1 id: "title" "HI")
+  }  
+
+  Becomes:
+
+  @verbatim{
+    <h1 id="title">HI</h1>
+  }
+}
+
 @defthing[site? (listof page?)]{
   Yep, a site is just a list. 
 
@@ -208,9 +222,136 @@ It shows how to construct an index page and three content pages, each connected 
   Wraps the given content in a @racket[div] whose @racket[class:] is @racket["container"].
 }
 
+@section{Grids}
+
+Bootstraps grid system is what allows for responsive design.  Constructors are provided for @racket[row] and columns of various sizes -- all of which correspond to Bootstrap classes in a straight-forward way.
 
 
+@defproc[(row [#:element element div] [content (or/c element? attribute?)]) element?]{
+  A wrapper for column elements.  A full example for context:
+
+    @codeblock{
+        #lang racket
+
+        (require website/bootstrap)
+
+        (define (normal-content title . stuff)
+         (content
+          (container
+           (h1 title)
+           stuff)))
+
+        (define my-site
+         (append
+          (bootstrap-files)
+          (list
+           (page index.html
+            (normal-content
+             "Column Demos"
+
+             (row
+              (col style: "background-color: red"  "1") 
+              (col-6 style: "background-color: green" "2") 
+              (col style: "background-color: blue" "3"))
+
+             (row
+              (col style: "background-color: red"  "1") 
+              (col-5 style: "background-color: green" "2") 
+              (col style: "background-color: blue" "3"))
 
 
+             (row
+              (col-6 class: "col-md-4" style: "background-color: red"  "1") 
+              (col-6 class: "col-md-4" style: "background-color: green"  "1") 
+              (col-6 class: "col-md-4" style: "background-color: blue"  "1")))))))
+
+        (render my-site #:to "out")
+    }
+}
+
+@defproc[(col [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-1 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-2 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-3 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-4 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-5 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-6 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-7 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-8 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-9 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-10 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-11 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(col-12 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+
+Also available (but I am too lazy to list them) are the variants with @tt{sm}, @tt{md}, @tt{lg}, or @tt{xl}.
+
+Once such example:
+
+@defproc[(col-sm-4 [#:element element div] [content (or/c element? attribute?)]) element?]{}
+
+@section{Cards}
+
+Bootstrap's cards are a key aspect of Bootstrap's visual language. 
+
+@defproc[(card [#:element element div] [content (or/c element? attribute?)]) element?]{
+  This is a psuedo element -- a @racket[div] with the @racket[class:] @racket["card"]  
+
+  Things that can be nested inside of it: @racket[card-img-top], @racket[card-body], @racket[card-title], @racket[card-subtitle], @racket[card-text], and @racket[card-link].
+
+  Use these as building blocks to make your own sorts of cards.  
+
+  Examples:
+
+  @codeblock{
+    (card
+      (card-img-top)
+      (card-body
+        (card-title "I am a card")
+        (card-subtitle "with a subtitle")
+        (card-text "Lorem ipsum ....") 
+        (button-primary
+          "Learn More")))
+  }
+}
+
+
+@section{Buttons}
+
+There are a variety of constructors for common Bootstrap buttons.
+
+Each is implemented as a psuedo element, meaning that although they return @racket[button] values, you can still pass in content and attributes as you would with any html element constructors.
+
+@defproc[(button-primary [#:element element button?] [content (or/c element? attribute?)]) element?]{
+
+  @codeblock{
+    (button-primary 
+       id: "main-button"
+       "My Button")
+  } 
+}
+
+@defproc[(button-secondary [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
+
+@defproc[(button-success [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
+
+@defproc[(button-danger [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
+
+@defproc[(button-warning [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
+
+@defproc[(button-info [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
+
+@defproc[(button-light [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
+
+@defproc[(button-dark [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
+
+@defproc[(button-link [#:element element button?] [content (or/c element? attribute?)]) element?]{
+}
 
 
