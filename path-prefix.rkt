@@ -9,7 +9,10 @@
 
 (define (pathify path)
   (cond
-      [(string? path) path]
+      [(string? path) 
+       (if (string-prefix? path "/")
+         path
+         (~a "/" path))]
       [(list? path) (~a "/" (string-join path "/"))]))
 
 (define (add-path-prefix path)
