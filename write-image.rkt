@@ -5,6 +5,7 @@
 
 (require
   "./render.rkt"
+  "./path-prefix.rkt"
   scribble/html/html
   (only-in pict
            pict->bitmap)
@@ -20,12 +21,14 @@
       (save-image i))
 
     (apply img 
-           'src: (~a "/" save-path)
+           'src: (add-path-prefix (~a "/" save-path))
            (drop-right content 1))))
 
+(define next-i 0)
 (define (save-image i)
-  (define r (random 100000))
+  (set! next-i (add1 next-i))
 
+  (define r next-i)
 
   (if (image? i)
     (let* ([f (~a r ".svg")] 

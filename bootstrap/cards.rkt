@@ -1,8 +1,5 @@
 #lang racket
 
-(provide card 
-         card-img-top)
-
 (require "../main.rkt")
 
 (define/provide-extensible-element 

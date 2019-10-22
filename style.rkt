@@ -7,9 +7,14 @@
     ""
     (~a 
        (~a (first ps)
-           (second ps))
+           (style-render (second ps)))
        ";"
        (apply properties (drop ps 2)))))
+
+(define (style-render x)
+  (cond
+    [(number? x) (~a x "px")] ;Assume numbers mean pixels.
+    [else x]))
 
 
 (define (properties-join val other-value)
