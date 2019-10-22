@@ -1,6 +1,6 @@
 #lang racket
 
-(provide properties)
+(provide properties properties-join)
 
 (define (properties . ps)
   (if (empty? ps)
@@ -10,6 +10,12 @@
            (second ps))
        ";"
        (apply properties (drop ps 2)))))
+
+
+(define (properties-join val other-value)
+  (if (and val other-value)
+      (string-append val ";" other-value)
+      (or val other-value)))
 
 
 (define-syntax-rule

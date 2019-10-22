@@ -46,7 +46,7 @@
                 . content)
   (nav class: "navbar navbar-expand-md navbar-dark bg-dark"
     (div class: "container"
-      (a href: "/" class: "navbar-brand" 
+      (a href: "/index.html" class: "navbar-brand" 
          brand) 
       (ul class: "navbar-nav mr-auto"
         content))))
