@@ -29,9 +29,15 @@
     (provide type)
     (define type 'type)))
 
+(define/provide-style background:)
 (define/provide-style background-color:)
-
+(define/provide-style background-clip:)
+(define/provide-style background-origin:)
+(define/provide-style background-size:)
+(define/provide-style background-position:)
 (define/provide-style background-image:)
+(define/provide-style background-repeat:)
+(define/provide-style background-attachment:)
 
 (define/provide-style color:)
 

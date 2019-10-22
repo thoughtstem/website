@@ -3,7 +3,10 @@
 (provide render site-dir page-dir)
 
 (require "./page.rkt" 
-         "./path-prefix.rkt")
+         "./path-prefix.rkt"
+         (only-in 2htdp/image 
+                  image?
+                  save-image))
 
 (require scribble/html/xml)
 
@@ -30,7 +33,7 @@
   (write-prefix-file! output-dir)
 
   (parameterize ([site-dir (build-path output-dir)])
-    (for ([p site])
+    (for ([p (flatten site)])
       (define path-parts (page-path p))
 
       (define folder-parts (reverse (drop (reverse path-parts) 1)))
@@ -48,13 +51,17 @@
         (with-output-to-file path 
                              #:exists 'replace
                              (thunk
-                               (define c (page-content p))
+                               (render-page p path)))))))
 
-                               (if (string? c)
-                                 (displayln c)
-                                 (displayln 
-                                   (xml->string 
-                                     (preprocess (page-content p)))))))))))
+(define (render-page p path)
+  (define c (page-content p))
+
+  (cond
+    [(string? c) (displayln c)]
+    [(image? c) (save-image c path)]
+    [else (displayln 
+            (xml->string 
+              (preprocess (page-content p))))]))
 
 
 (define (preprocess content)

@@ -1,6 +1,7 @@
 #lang racket
 (require web-server/servlet
          web-server/servlet-env)
+(require web-server/private/mime-types)
 
 (define prefix-file (build-path "site-prefix"))
 
@@ -22,16 +23,25 @@
                     "Click to go to my site")))))
 
 (define (serve-file path)
+
+  (define last-part (~a (last path)))
+
  (response/full
    200 #"OK"
-   (current-seconds) TEXT/HTML-MIME-TYPE
+   (current-seconds) (if (string-contains? last-part ".png")
+                       #"image/png"
+                       TEXT/HTML-MIME-TYPE)
    '() ;Headers
    (list 
-     (string->bytes/utf-8
-       (file->string (build-path 
-                       run-dir 
-                       (apply build-path path)))))) )
- 
+     (if (string-contains? last-part ".png")
+       (file->bytes (build-path 
+                      run-dir 
+                      (apply build-path path))) 
+       (string->bytes/utf-8
+         (file->string (build-path 
+                         run-dir 
+                         (apply build-path path))))))) )
+
 (define (req->path req)
   (define url (request-uri req)) 
 
@@ -55,7 +65,7 @@
     (serve-file file-path)
     (welcome)))
 
- 
+
 (if path-prefix
   (serve/servlet my-app
                  #:servlet-path (~a "/" path-prefix "/")
