@@ -6,7 +6,11 @@
          element?
          element->contents
          query
-         paras)
+         paras
+         
+         get-attribute
+         has-attribute?
+         )
 
 (require scribble/html/html
          (only-in scribble/html/xml
@@ -132,12 +136,12 @@
   )
 
 
-(define (has-attribute? e attr)
+(define (has-attribute? attr e )
   (member 
     (attribute? attr)
     (element->attributes e)))
 
-(define (get-attribute e attr)
+(define (get-attribute attr e )
   (define attrs 
     (element->attributes e))
 
@@ -146,8 +150,7 @@
       attrs
       (curry eq? (attribute? attr))))
   
-  (list-ref attrs (add1 i))
-  )
+  (list-ref attrs (add1 i)))
 
 (define (list->pairs l)
   (if (empty? l)
@@ -165,9 +168,9 @@
     (define attr (first attr-q))      
     (define val  (second attr-q))      
 
-    (and (has-attribute? e attr)
+    (and (has-attribute? attr e )
          (equal?
-           (get-attribute e attr)
+           (get-attribute attr e )
            val)))
 
   (define (attrs-match attr-qs e)

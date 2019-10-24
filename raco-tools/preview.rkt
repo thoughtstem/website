@@ -28,9 +28,11 @@
 
  (response/full
    200 #"OK"
-   (current-seconds) (if (string-contains? last-part ".png")
-                       #"image/png"
-                       TEXT/HTML-MIME-TYPE)
+   (current-seconds) (cond 
+                       [(string-contains? last-part ".png") #"image/png"]
+                       [(string-contains? last-part ".svg") #"image/svg+xml"]
+                       [else
+                         TEXT/HTML-MIME-TYPE] )
    '() ;Headers
    (list 
      (if (string-contains? last-part ".png")

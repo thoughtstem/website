@@ -124,6 +124,56 @@
   Joining two sites together is as simple as using @racket[append].
 }
 
+@defproc[(push-path [part string?]
+                    [page (or/c page? (listof page?))]) page?]{
+  Adds the @racket[part] onto the page's path.  If the supplied page is actually a list, @racket[push-path] maps itself across them to push them all down a (virtual) directory.  Makes it easy to include pages as a sub-site within an existing site, where the subsite is served at a fixed subpath. 
+}
+
+@defproc[(get-attribute 
+            [attr: symbol?]
+            [element element?]) any/c]{
+
+  Gets the attribute from the element.
+
+  @codeblock{
+    (get-attribute id: (div id: "id"))
+  }
+
+  Gives @racket["id"].
+
+  Fails if it doesn't exist.
+}
+
+@defproc[(has-attribute?
+            [attr: symbol?]
+            [element element?]) boolean?]{
+
+  Returns true if the element has the attribute.
+}
+
+@defproc[(get-property
+            [prop: symbol?]
+            [style string?]) string?]{
+
+  This returns the property within a style string:
+
+  @codeblock{
+    (get-property color:
+      (get-attribute style:
+        (div style: (properties color: "red"))))
+  }
+
+  Gives you @racket["red"].
+}
+
+@defproc[(de-url
+            [string-with-url string?]) string?]{
+
+  Takes strings like @racket["url(http://example.com/img.png)"] and gives you back just the url, like @racket["http://example.com/img.png"].
+}
+
+@section{Bootstrap}
+
 @defmodule[website/bootstrap]
 
 This provides features for building websites that use bootstrap's visual vocabularly.

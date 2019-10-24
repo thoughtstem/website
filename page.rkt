@@ -3,6 +3,7 @@
 (provide (except-out (struct-out page)
                      page) 
          (rename-out [make-page page])
+         push-path
          site
          page->path) 
 
@@ -58,3 +59,17 @@
     (page (list "dir" "index.html")
           content))
   )
+
+
+(define (push-path part p)
+
+  (if (list? p)
+    (map (curry push-path part) p)
+    (let ()
+      (define path
+        (cons part (page-path p)))
+      (page 
+        path
+        (page-content p)))))
+
+

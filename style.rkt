@@ -1,6 +1,9 @@
 #lang racket
 
-(provide properties properties-join)
+(provide properties 
+         properties-join
+         get-property
+         de-url)
 
 (define (properties . ps)
   (if (empty? ps)
@@ -10,6 +13,17 @@
            (style-render (second ps)))
        ";"
        (apply properties (drop ps 2)))))
+
+(define (get-property prop: sty)
+  (define m
+    (regexp-match (regexp (~a prop: "([^;]*);")) sty))
+  
+  (second m))
+
+(define (de-url s)
+  (string-replace
+    (string-replace s "url(" "")
+    ")" ""))
 
 (define (style-render x)
   (cond
