@@ -1,6 +1,6 @@
 #lang info
 (define collection "website")
-(define deps '("base"))
+(define deps '("base" "graph"))
 (define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
 (define scribblings '(("scribblings/website.scrbl" ())))
 (define pkg-desc "Description Here")

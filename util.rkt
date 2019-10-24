@@ -3,6 +3,7 @@
 (provide include-js 
          include-css
          findf-element
+         filter-element
          element?
          element->contents
          query
@@ -92,7 +93,7 @@
         ">" ""))))
 
 (define/contract (findf-element q? elem)
-  (-> procedure? element? 
+  (-> procedure? any/c
       (or/c #f element?))
 
   (if (q? elem)
@@ -107,6 +108,7 @@
           identity
           (map (curry findf-element q?) 
                contents))))))
+
 
 
 (module+ test
@@ -158,7 +160,7 @@
     (cons (take l 2) 
           (list->pairs (drop l 2)))))
 
-(define (query kind . attr-qs)
+(define (query  kind . attr-qs)
   (define (kind-matches k e)
     (or (eq? 
           (elem-proc->symbol k) 
@@ -218,3 +220,72 @@
   (if (lone-newline s)
     (br)
     s))
+
+
+(define/contract (filter-element #:force? (force? #f) q? elem-or-proc)
+  (->* (procedure? any/c)
+       (#:force? boolean?)
+       (listof element?))
+
+  (define elem
+    (if (and (procedure? elem-or-proc)
+             (not (element? elem-or-proc)) ;Elements are apparently procs too, so we need to further distinguish?
+             force?)
+      (begin
+        (elem-or-proc))  
+      elem-or-proc))
+
+  (define has-contents? (and (element? elem)
+                             (element->contents elem)))
+
+  (define (recurse)
+    (apply append 
+           (map (curry filter-element #:force? force? q?) 
+                (element->contents elem))))
+
+  (if (q? elem)
+    (if (not has-contents?)
+      (list elem)  
+      (cons elem
+            (recurse) 
+            ))
+    (let ()
+      (if (not has-contents?)
+        '()
+        (recurse)))))
+
+(module+ test
+  
+  (check-equal?
+    (length
+      (filter-element (query h1)
+                      (div
+                        (h1 "1") 
+                        (h1 "2")))) 
+
+    2)
+
+ (check-equal? 
+   (length
+     (filter-element (query h1)
+                     (div
+                       (h1 "1") 
+                       (h1 "2"
+                           (h1 "3")))))
+   3)
+ 
+  (check-equal?
+    (length
+      (filter-element #:force? #t
+                      (query h1)
+                      (div
+                        (thunk (h1 "1")) 
+                        (h1 "2")))) 
+
+    2)
+ )
+
+
+
+
+
