@@ -28,3 +28,8 @@
 (define/provide-attr id:)
 (define/provide-attr align:)
 (define/provide-attr type:)
+(define/provide-attr action:)
+(define/provide-attr dir:)
+(define/provide-attr name:)
+(define/provide-attr rows:)
+(define/provide-attr cols:)
