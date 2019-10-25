@@ -15,14 +15,15 @@
 
 (define (write-image . content)
   (thunk
-    (define i (last content))
+    (when (site-dir)
+      (define i (last content))
 
-    (define save-path
-      (save-image i))
+      (define save-path
+        (save-image i))
 
-    (apply img 
-           'src: (add-path-prefix (~a "/" save-path))
-           (drop-right content 1))))
+      (apply img 
+             'src: (add-path-prefix (~a "/" save-path))
+             (drop-right content 1)))))
 
 (define next-i 0)
 (define (save-image i)
