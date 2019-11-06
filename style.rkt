@@ -115,3 +115,6 @@
 
 (define/provide-style clear:)
 
+; -----------
+
+(define/provide-style position:)
