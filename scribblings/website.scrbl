@@ -172,6 +172,16 @@
   Takes strings like @racket["url(http://example.com/img.png)"] and gives you back just the url, like @racket["http://example.com/img.png"].
 }
 
+@defform[(define/provide-extensible-element name base overrides ...)]{
+
+@codeblock{
+(define/provide-extensible-element
+  page-item
+  li
+  (class: "page-item" class-join))
+}
+}
+
 @section{Bootstrap}
 
 @defmodule[website/bootstrap]

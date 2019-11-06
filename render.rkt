@@ -1,6 +1,8 @@
 #lang racket
 
-(provide render site-dir page-dir)
+(provide render site-dir page-dir
+         (rename-out [make-sub sub-site])
+         )
 
 (require "./page.rkt" 
          "./path-prefix.rkt"
@@ -13,49 +15,72 @@
 (define site-dir (make-parameter #f))
 (define page-dir (make-parameter #f))
 
+(define should-write-prefix (make-parameter #t))
+
 (define (write-prefix-file! out)
-  (define prefix-file
-    (build-path out "site-prefix"))   
+  (when (and (path-prefix) 
+             (should-write-prefix))
 
-  (when (file-exists? prefix-file)
-    (delete-file prefix-file))
+    (define prefix-file
+      (build-path out "site-prefix"))   
 
-  (when (path-prefix)
+    (when (file-exists? prefix-file)
+      (delete-file prefix-file))
     (displayln "Writing site prefix")
     (displayln (path-prefix))
 
     (with-output-to-file 
-     prefix-file
-     (thunk
-       (display (path-prefix))))))
+      prefix-file
+      (thunk
+        (display (path-prefix))))))
+
+
+(struct sub (path site))
+(define (make-sub sub-path site)
+  ;Marks the site so that at render time, it will produce page paths with the sub-path cons'ed (push-path), and with the links rendered appropriately (with-prefix)
+  (sub sub-path site))
 
 (define (render site #:to output-dir)
   (write-prefix-file! output-dir)
 
   (parameterize ([site-dir (build-path output-dir)])
     (for ([p (flatten site)])
-      (define path-parts (page-path p))
+      (cond
+        [(page? p) (render-page p output-dir)]
+        [(sub? p)  (render-sub p output-dir)]))))
 
-      (define folder-parts (reverse (drop (reverse path-parts) 1)))
+(define (render-sub s output-dir)
+  (define prefix (sub-path s)) 
+  (define site   (sub-site s)) 
 
-      (define path (apply build-path 
-                          (cons output-dir path-parts))) 
-      (define folder-path (apply build-path 
-                                 (cons output-dir folder-parts))) 
+  ;Push the prefix on both the one that generates links and the page locations themselves
+  (parameterize ([should-write-prefix #f])
+    (with-prefix (~a (path-prefix) "/" prefix)
+                 (render (push-path prefix site)
+                         #:to output-dir))))
+
+(define (render-page p output-dir)
+  (define path-parts (page-path p))
+
+  (define folder-parts (reverse (drop (reverse path-parts) 1)))
+
+  (define path (apply build-path 
+                      (cons output-dir path-parts))) 
+  (define folder-path (apply build-path 
+                             (cons output-dir folder-parts))) 
 
 
-      (make-directory* folder-path)
+  (make-directory* folder-path)
 
-      (parameterize
-        ([page-dir folder-path])
-        (with-output-to-file path 
-                             #:exists 'replace
-                             (thunk
-                               (render-page p path)))))))
+  (parameterize
+    ([page-dir folder-path])
+    (with-output-to-file path 
+                         #:exists 'replace
+                         (thunk
+                           (render-page-content p path)))))
 
-(define (render-page p path)
+(define (render-page-content p path)
   (define c (page-content p))
-
   (cond
     [(string? c) (displayln c)]
     [(image? c) (save-image c path)]

@@ -1,12 +1,12 @@
 #lang racket
 
-(provide (all-from-out website)
+(provide (except-out (all-from-out website) col)
          include-impress-js
          impress-init
          impress
+         impress-files
          impress-site
-         step
-         )
+         step)
 
 (require website
          racket/runtime-path)
@@ -38,22 +38,22 @@
                  (flatten
                    (list
                      class: "step"
-                     (guard x (list 'data-x: (~a x)))
-                     (guard y (list 'data-y: (~a y)))
-                     (guard z (list 'data-z: (~a z)))
-                     (guard rel-x (list 'data-rel-x: (~a rel-x)))
-                     (guard rel-y (list 'data-rel-y: (~a rel-y)))
-                     (guard rel-z (list 'data-rel-z: (~a rel-z)))
-                     (guard rotate-x (list 'data-rotate-x: (~a rotate-x)))
-                     (guard rotate-y (list 'data-rotate-y: (~a rotate-y)))
-                     (guard rotate-z (list 'data-rotate-z: (~a rotate-z)))
-                     (guard scale (list 'data-scale: (~a scale)))
-                     (guard rotate (list 'data-rotate: (~a rotate)))
-                     (guard autoplay (list 'data-autoplay: (~a autoplay)))
+                     (guard x (list 'data-x: x ))
+                     (guard y (list 'data-y: y ))
+                     (guard z (list 'data-z: z ))
+                     (guard rel-x (list 'data-rel-x: rel-x ))
+                     (guard rel-y (list 'data-rel-y: rel-y ))
+                     (guard rel-z (list 'data-rel-z: rel-z ))
+                     (guard rotate-x (list 'data-rotate-x: rotate-x ))
+                     (guard rotate-y (list 'data-rotate-y: rotate-y ))
+                     (guard rotate-z (list 'data-rotate-z: rotate-z ))
+                     (guard scale (list 'data-scale: scale ))
+                     (guard rotate (list 'data-rotate: rotate ))
+                     (guard autoplay (list 'data-autoplay: autoplay ))
 
-                     (guard goto (list 'data-goto: (~a goto)))
-                     (guard key-list (list 'data-goto-key-list: (~a key-list)))
-                     (guard next-list (list 'data-goto-next-list: (~a next-list)))
+                     (guard goto (list 'data-goto: goto ))
+                     (guard key-list (list 'data-goto-key-list: key-list ))
+                     (guard next-list (list 'data-goto-next-list: next-list ))
                      contents)))))
 
 (define (impress-files)
@@ -67,7 +67,9 @@
 (define (impress-init)
   (script "impress().init()"))
 
-(define (impress-site #:head (head-content #f) . contents)
+(define (impress-site 
+          #:transition-duration (td 1000)
+          #:head (head-content #f) . contents)
   (list
     (impress-files)
     (page index.html
@@ -75,11 +77,17 @@
         (head
           head-content)
         (body class: "impress-not-supported"
-          (impress contents)
-          (include-impress-js)
-          (impress-init))))))
+          (impress #:transition-duration td
+                   contents))))))
 
-(define (impress . contents)
-  (div id: "impress" 
-       'data-transition-duration: "1000" 
-       contents))
+(define (impress 
+          #:transition-duration (td 1000)
+          . contents)
+  (list
+    (div id: "impress" 
+         'data-transition-duration: (~a td)
+         contents)
+    (include-impress-js)
+    (impress-init)))
+
+

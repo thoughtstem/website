@@ -1,6 +1,7 @@
 #lang racket
 
-(provide get-attr class-join)
+(provide get-attr class-join
+         define/provide-attr)
 
 (define (get-attr attr content)
   (define i (index-of content attr)) 

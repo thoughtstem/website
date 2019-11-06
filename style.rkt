@@ -3,7 +3,8 @@
 (provide properties 
          properties-join
          get-property
-         de-url)
+         de-url
+         define/provide-style)
 
 (define (properties . ps)
   (if (empty? ps)
@@ -27,7 +28,7 @@
 
 (define (style-render x)
   (cond
-    [(number? x) (~a x "px")] ;Assume numbers mean pixels.
+    [(number? x) (~a (exact->inexact x) "px")] ;Assume numbers mean pixels.
     [else x]))
 
 
@@ -114,4 +115,6 @@
 (define/provide-style object-fit:)
 
 (define/provide-style clear:)
+
+(define/provide-style position:)
 
