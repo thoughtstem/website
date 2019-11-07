@@ -24,6 +24,8 @@
   Rendering @racket[my-site] out to the output directory.  
 
   A "site" is just a list of @racket[page] structures.
+
+  Note that the intended dev experience is that you run @pre{$ raco website-preview} in your output directory, which launches a browser pointing to a locally running webserver.  Then you just refresh the page whenever you rerender your site. 
 }
 
 
