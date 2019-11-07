@@ -70,19 +70,21 @@
        text)))
 
 
-#;
-(define (container . content)
-  (div class: "container"
-       content))
-
 (define/provide-extensible-element
   container
   div
   [class: "container" class-join])
 
-(define (row . content)
-  (div class: "row"
-       content))
+(define/provide-extensible-element 
+  row
+  div
+  (class: "row"))
+
+(define/provide-extensible-element 
+  jumbotron
+  div
+  (class: "row"))
+
 
 (define (bootstrap-files)
   (list

@@ -47,7 +47,8 @@
     (for ([p (flatten site)])
       (cond
         [(page? p) (render-page p output-dir)]
-        [(sub? p)  (render-sub p output-dir)]))))
+        [(sub? p)  (render-sub p output-dir)]
+        [else (error "You can only render a list of pages or subs")]))))
 
 (define (render-sub s output-dir)
   (define prefix (sub-path s)) 
