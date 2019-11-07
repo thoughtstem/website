@@ -78,12 +78,12 @@
 (define/provide-extensible-element 
   row
   div
-  (class: "row"))
+  (class: "row" class-join))
 
 (define/provide-extensible-element 
   jumbotron
   div
-  (class: "row"))
+  (class: "jumbotron" class-join))
 
 
 (define (bootstrap-files)
