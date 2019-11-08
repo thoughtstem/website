@@ -59,7 +59,7 @@
                 content))
        ))
 
-(define (footer . content)
+(define (normal-footer . content)
   (footer id: "footer"
        (div class: "container"
             content)))
