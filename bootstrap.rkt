@@ -50,7 +50,7 @@
 
 (define (navbar #:brand (brand "BRAND/LOGO HERE")
                 . content)
-  (nav class: "navbar navbar-expand-md navbar-dark bg-dark"
+  (nav class: "navbar sticky-top navbar-expand-md navbar-dark bg-dark"
        (div class: "container"
             (a href: (add-path-prefix "/index.html") 
                class: "navbar-brand" 
