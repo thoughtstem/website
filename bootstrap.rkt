@@ -55,7 +55,7 @@
             (a href: (add-path-prefix "/index.html") 
                class: "navbar-brand" 
                brand) 
-            (ul class: "navbar-nav mr-auto"
+            (ul class: "navbar-nav ml-auto"
                 content))
        ))
 
