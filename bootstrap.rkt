@@ -60,7 +60,7 @@
        ))
 
 (define (footer . content)
-  (footer 
+  (footer id: "footer"
        (div class: "container"
             content)))
 
