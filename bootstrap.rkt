@@ -59,6 +59,11 @@
                 content))
        ))
 
+(define (footer . content)
+  (footer 
+       (div class: "container"
+            content)))
+
 (define (nav-item content)
   (li class: "nav-item"
       content))
