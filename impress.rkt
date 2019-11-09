@@ -1,4 +1,4 @@
-#lang racket
+#lang at-exp racket
 
 (provide (except-out (all-from-out website) col)
          include-impress-js
@@ -6,7 +6,9 @@
          impress
          impress-files
          impress-site
-         step)
+         step
+         impress-debug
+         debug-impress)
 
 (require website
          racket/runtime-path)
@@ -14,8 +16,28 @@
 (define-runtime-path js "impress/js")
 (define-runtime-path css "impress/css")
 
+(define impress-debug (make-parameter #f))
+
+(define-syntax-rule (debug-impress stuff ...)
+  (parameterize ([impress-debug #t])
+    stuff ...))
+
+
+(define (fix-format that)
+  (define v (second that))
+  (list-set
+    that
+    1
+    (cond 
+      [(number? v)
+       (~r (exact->inexact v)
+           #:precision 3)]
+      [else v]))) 
+
 (define (guard this that)
-  (if this that #f))
+  (if this 
+    (fix-format that)
+    #f))
 
 (define (step #:x (x #f) 
               #:y (y #f) 
@@ -54,7 +76,10 @@
                      (guard goto (list 'data-goto: goto ))
                      (guard key-list (list 'data-goto-key-list: key-list ))
                      (guard next-list (list 'data-goto-next-list: next-list ))
-                     contents)))))
+                     contents
+                     (when (impress-debug)
+                       @div{x:@x, y:@y, scale:@scale})
+                     )))))
 
 (define (impress-files)
   (page js/impress.js
