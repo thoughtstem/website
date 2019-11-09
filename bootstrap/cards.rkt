@@ -3,6 +3,11 @@
 (require "../main.rkt")
 
 (define/provide-extensible-element 
+  card-deck
+  div
+  (class: "card-deck" class-join))
+
+(define/provide-extensible-element 
   card
   div
   (class: "card" class-join))

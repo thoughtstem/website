@@ -24,6 +24,8 @@
   Rendering @racket[my-site] out to the output directory.  
 
   A "site" is just a list of @racket[page] structures.
+
+  Note that the intended dev experience is that you run @litchar{$ raco website-preview} in your output directory, which launches a browser pointing to a locally running webserver.  Then you just refresh the page whenever you rerender your site. 
 }
 
 
@@ -53,7 +55,7 @@
   The actual files would be created later, with a call to @racket[render]. 
   
   Note, although a @racket[page] struct stores its path as a list of strings.
-  You should make use of the fact that the @racket[page] cosntructor is actually a macro
+  You should make use of the fact that the @racket[page] constructor is actually a macro
   that parses the first identifier into a list of strings based on the forward
   slashes.  If you don't want this behaviour, simply pass in a list directly
   or an id that does not contain slashes or dots.  

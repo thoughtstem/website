@@ -50,14 +50,19 @@
 
 (define (navbar #:brand (brand "BRAND/LOGO HERE")
                 . content)
-  (nav class: "navbar navbar-expand-md navbar-dark bg-dark"
+  (nav class: "navbar sticky-top navbar-expand-md navbar-dark bg-dark"
        (div class: "container"
             (a href: (add-path-prefix "/index.html") 
                class: "navbar-brand" 
                brand) 
-            (ul class: "navbar-nav mr-auto"
+            (ul class: "navbar-nav ml-auto"
                 content))
        ))
+
+(define (normal-footer . content)
+  (footer id: "footer"
+       (div class: "container"
+            content)))
 
 (define (nav-item content)
   (li class: "nav-item"
@@ -70,19 +75,21 @@
        text)))
 
 
-#;
-(define (container . content)
-  (div class: "container"
-       content))
-
 (define/provide-extensible-element
   container
   div
   [class: "container" class-join])
 
-(define (row . content)
-  (div class: "row"
-       content))
+(define/provide-extensible-element 
+  row
+  div
+  (class: "row" class-join))
+
+(define/provide-extensible-element 
+  jumbotron
+  div
+  (class: "jumbotron" class-join))
+
 
 (define (bootstrap-files)
   (list
