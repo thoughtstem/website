@@ -14,9 +14,9 @@
 
 (define-syntax (make-page stx)
   (syntax-parse stx
-    #:literals (list)
-    [(_ (list parts ...) content)
-     #'(page (list parts ...) content)]
+    ;Usually it's (list parts ...), but we'll count anything starting with a paren as stuff to evaluate the normal way
+    [(_ (usually-list parts ...) content)
+     #'(page (usually-list parts ...) content)]
     [(_ id content)
      (define id-string 
        (symbol->string (syntax->datum #'id)))
