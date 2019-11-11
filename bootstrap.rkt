@@ -51,18 +51,12 @@
 (define (navbar #:brand (brand "BRAND/LOGO HERE")
                 . content)
   (nav class: "navbar sticky-top navbar-expand-md navbar-dark bg-dark"
-       (div class: "container"
             (a href: (add-path-prefix "/index.html") 
                class: "navbar-brand" 
                brand) 
             (ul class: "navbar-nav ml-auto"
                 content))
-       ))
-
-(define (normal-footer . content)
-  (footer id: "footer"
-       (div class: "container"
-            content)))
+       )
 
 (define (nav-item content)
   (li class: "nav-item"
@@ -70,7 +64,7 @@
 
 (define (nav-link to text)
   (nav-item
-    (a class: "nav-link" 
+    (a class: "nav-link mr-3" 
        href: (pathify (add-path-prefix to)) 
        text)))
 
