@@ -105,7 +105,7 @@
 
 (define (bootstrap site)
   (append
-    site
+    (flatten site)
     (bootstrap-files)))
 
 

@@ -9,17 +9,25 @@
 
 (define (pathify path)
   (cond
-      [(string? path) 
-       (if (string-prefix? path "/")
+    [(string? path) 
+     (if (string-prefix? path "/")
+       path
+       (if (or
+             (string-prefix? path "http:")
+             (string-prefix? path "https:"))
          path
-         (~a "/" path))]
-      [(list? path) (~a "/" (string-join path "/"))]))
+         (~a "/" path))
+
+       #;
+       (~a "/" path))]
+    [(list? path) (~a "/" (string-join path "/"))]))
 
 (define (add-path-prefix path)
   (if (not (path-prefix))
     path
     (cond
-      [(string? path) (~a "/" (path-prefix) "/" path)]
+      [(string? path) 
+       (~a "/" (path-prefix) "/" path)]
       [(list? path) (cons (path-prefix) path)])))
 
 (define-syntax-rule (with-prefix prefix do-stuff ...)
