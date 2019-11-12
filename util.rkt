@@ -94,7 +94,7 @@
 
 (define/contract (findf-element q? elem)
   (-> procedure? any/c
-      (or/c #f element?))
+      (or/c #f element? list?))
 
   (if (q? elem)
     elem
@@ -160,7 +160,7 @@
     (cons (take l 2) 
           (list->pairs (drop l 2)))))
 
-(define (query  kind . attr-qs)
+(define (query kind . attr-qs)
   (define (kind-matches k e)
     (or (eq? 
           (elem-proc->symbol k) 

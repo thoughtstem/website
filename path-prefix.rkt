@@ -19,12 +19,19 @@
 ;Crunches lists down to strings.
 (define (pathify path)
   (simplify-slashes
-    (cond
-      [(string? path) 
-       (if (string-prefix? path "/")
+  (cond
+    [(string? path) 
+     (if (string-prefix? path "/")
+       path
+       (if (or
+             (string-prefix? path "http:")
+             (string-prefix? path "https:"))
          path
-         (~a "/" path))]
-      [(list? path) (~a "/" (string-join path "/"))])))
+         (~a "/" path))
+
+       #;
+       (~a "/" path))]
+    [(list? path) (~a "/" (string-join path "/"))])))
 
 ;Keeps paths as lists (if they are), but pushes the prefix
 (define (add-path-prefix path)
@@ -32,7 +39,7 @@
     path
     (cond
       [(string? path) (~a "/" (path-prefix) "/" path)]
-      [(list? path) (cons (path-prefix) path)])) )
+      [(list? path) (cons (path-prefix) path)])))
 
 (define-syntax-rule (with-prefix prefix do-stuff ...)
   (parameterize ([path-prefix prefix])
