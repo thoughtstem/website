@@ -51,10 +51,16 @@
   a
   (class: "card-link" class-join))
 
+(define/provide-extensible-element 
+  card-group
+  a
+  (class: "card-group" class-join))
 
-;Card templates?
 
-
+(define/provide-extensible-element 
+  card-header
+  a
+  (class: "card-header" class-join))
 
 
 
