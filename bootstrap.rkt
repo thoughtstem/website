@@ -30,7 +30,6 @@
 
 (define (include-bootstrap-js)
   (list 
-    (include-js "/js/jquery-3.2.1.slim.min.js")
     (include-js "/js/bootstrap.bundle.min.js" )))
 
 (define (include-bootstrap-css)
@@ -45,6 +44,7 @@
       (include-bootstrap-css))
 
     (body
+      (include-js "/js/jquery-3.2.1.slim.min.js")
       body-content
       (include-bootstrap-js))))
 
