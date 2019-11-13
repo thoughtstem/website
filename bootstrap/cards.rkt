@@ -8,6 +8,11 @@
   (class: "card-deck" class-join))
 
 (define/provide-extensible-element 
+  card-columns
+  div
+  (class: "card-columns" class-join))
+
+(define/provide-extensible-element 
   card
   div
   (class: "card" class-join))
@@ -46,10 +51,16 @@
   a
   (class: "card-link" class-join))
 
+(define/provide-extensible-element 
+  card-group
+  a
+  (class: "card-group" class-join))
 
-;Card templates?
 
-
+(define/provide-extensible-element 
+  card-header
+  a
+  (class: "card-header" class-join))
 
 
 

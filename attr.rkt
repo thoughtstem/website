@@ -34,3 +34,4 @@
 (define/provide-attr name:)
 (define/provide-attr rows:)
 (define/provide-attr cols:)
+(define/provide-attr role:)
