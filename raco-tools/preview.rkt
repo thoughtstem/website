@@ -30,12 +30,14 @@
    200 #"OK"
    (current-seconds) (cond 
                        [(string-contains? last-part ".png") #"image/png"]
+                       [(string-contains? last-part ".jpg") #"image/jpeg"]
                        [(string-contains? last-part ".svg") #"image/svg+xml"]
                        [else
                          TEXT/HTML-MIME-TYPE] )
    '() ;Headers
    (list 
-     (if (string-contains? last-part ".png")
+     (if (or (string-contains? last-part ".png")
+             (string-contains? last-part ".jpg"))
        (file->bytes (build-path 
                       run-dir 
                       (apply build-path path))) 
