@@ -53,14 +53,19 @@
 
 (define/provide-extensible-element 
   card-group
-  a
+  div
   (class: "card-group" class-join))
 
 
 (define/provide-extensible-element 
   card-header
-  a
+  div
   (class: "card-header" class-join))
+
+(define/provide-extensible-element 
+  card-footer
+  div
+  (class: "card-footer" class-join))
 
 
 
