@@ -12,6 +12,8 @@
          get-attribute
          has-attribute?
 
+         html/inline
+         
          map-element
          collect-all
          scrape-out)
@@ -21,6 +23,22 @@
                   attribute?)
          "./page.rkt"
          "./path-prefix.rkt")
+
+(define html-inline-id 0)
+
+(define (next-html-inline-id)
+  (set! html-inline-id (add1 html-inline-id))
+  html-inline-id)
+
+(define (html/inline str)
+  (define id (next-html-inline-id))
+  (define fixed-str (string-replace str "'" "\""))
+  (list (span 'id: (~a "html-inline-" id))
+        @script/inline{
+(function(){
+  var element = document.getElementById('html-inline-@id');
+  element.innerHTML = '@fixed-str';
+})();}))
 
 (define (get-path p)
   (if (page? p)

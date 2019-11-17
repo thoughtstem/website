@@ -89,6 +89,10 @@
   div
   (class: "jumbotron" class-join))
 
+(define/provide-extensible-element 
+  carousel
+  div
+  (class: "carousel" class-join))
 
 (define (bootstrap-files)
   (list
