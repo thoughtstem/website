@@ -36,6 +36,10 @@
   (list 
     (include-css "/css/bootstrap.min.css" )))
 
+(define (include-font-awesome-js)
+  (list 
+    (include-js "/js/font-awesome.js" )))
+
 (define (content #:head (head-content '()) 
                  .  body-content)
   (html
@@ -46,7 +50,8 @@
     (body
       (include-js "/js/jquery-3.2.1.slim.min.js")
       body-content
-      (include-bootstrap-js))))
+      (include-bootstrap-js)
+      (include-font-awesome-js))))
 
 (define (navbar #:brand (brand "BRAND/LOGO HERE")
                 . content)
@@ -89,6 +94,9 @@
   (list
     (page js/jquery-3.2.1.slim.min.js 
           (file->string (build-path js "jquery-3.2.1.slim.min.js")))
+    
+    (page js/font-awesome.js 
+          (file->string (build-path js "font-awesome.js")))
 
     (page js/bootstrap.bundle.min.js 
           (file->string (build-path js "bootstrap.bundle.min.js")))
