@@ -5,6 +5,7 @@
          navbar
 ;         container
          row
+         responsive-row
          nav-item
          nav-link
          bootstrap-files
@@ -113,6 +114,11 @@
   (append
     (flatten site)
     (bootstrap-files)))
+
+(define (responsive-row #:columns columns . items)
+  (define row-size (max 1 (min 12 (exact-round (/ 12 columns)))))
+  (apply row (map (curry div class: (~a "col-lg-" row-size
+                                        " col-xs-12 my-3")) items)))
 
 
 
