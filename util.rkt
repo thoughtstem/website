@@ -1,4 +1,4 @@
-#lang racket 
+#lang at-exp racket 
 
 (provide include-js 
          include-css
@@ -11,13 +11,34 @@
          
          get-attribute
          has-attribute?
-         )
+
+         html/inline
+         
+         map-element
+         collect-all
+         scrape-out)
 
 (require scribble/html/html
          (only-in scribble/html/xml
                   attribute?)
          "./page.rkt"
          "./path-prefix.rkt")
+
+(define html-inline-id 0)
+
+(define (next-html-inline-id)
+  (set! html-inline-id (add1 html-inline-id))
+  html-inline-id)
+
+(define (html/inline str)
+  (define id (next-html-inline-id))
+  (define fixed-str (string-replace str "'" "\""))
+  (list (span 'id: (~a "html-inline-" id))
+        @script/inline{
+(function(){
+  var element = document.getElementById('html-inline-@id');
+  element.innerHTML = '@fixed-str';
+})();}))
 
 (define (get-path p)
   (if (page? p)
@@ -42,6 +63,7 @@
   (require rackunit)
   (check-true
     (element? (h1 "HI"))))
+
 
 (define/contract (element->contents e)
   (-> (or/c string? element?)
@@ -282,9 +304,73 @@
                         (thunk (h1 "1")) 
                         (h1 "2")))) 
 
-    2)
- )
+    2))
 
+
+(require scribble/html/xml)
+
+
+(define (add-back-colons l)
+  (for/list ([thing l]
+             [even? (map even? (range (length l)))])
+
+    (define ret
+      (if even?
+        (string->symbol (~a thing ":"))
+        thing))
+
+    ret))
+
+
+(define (map-element f elem)
+  (define (recurse)
+    (define kind (element->kind elem))
+
+    (f
+      (apply (curry element/not-empty kind)
+             (flatten
+               (append
+                 (add-back-colons (element->attributes elem))
+                 (map (curry map-element f)
+                      (element->contents elem)))))))
+
+  (define has-contents? 
+    (and (element? elem)
+         (element->contents elem)))
+
+  (cond 
+    [has-contents? (recurse)]
+    [(list? elem) (map (curry map-element f) elem)]
+    [else elem]))
+
+(module+ test
+  (check-false
+    (findf-element (query script)
+      (map-element  (lambda (e) 
+                      (if ((query script) e)
+                        (void)
+                        e))
+                    (div
+                      (div "HI") 
+                      (script/inline
+                        @~a{alert("HI")})))) ))
+
+(define (scrape-out kind element)
+  (map-element  (lambda (e) 
+                  (if ((query kind) e)
+                    (void)
+                    e))
+                element))
+
+(define (collect-all kind element)
+  (define ret '())
+  (map-element  (lambda (e) 
+                  (when ((query kind) e)
+                    (set! ret (cons e ret)))
+                  e)
+                element)
+  
+  ret)
 
 
 

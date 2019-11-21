@@ -5,6 +5,7 @@
          navbar
 ;         container
          row
+         responsive-row
          nav-item
          nav-link
          bootstrap-files
@@ -36,6 +37,10 @@
   (list 
     (include-css "/css/bootstrap.min.css" )))
 
+(define (include-font-awesome-js)
+  (list 
+    (include-js "/js/font-awesome.js" )))
+
 (define (content #:head (head-content '()) 
                  .  body-content)
   (html
@@ -54,7 +59,7 @@
           })
         })
       
-      )))
+      (include-font-awesome-js))))
 
 (define (navbar #:brand (brand "BRAND/LOGO HERE")
                 . content)
@@ -92,11 +97,18 @@
   div
   (class: "jumbotron" class-join))
 
+(define/provide-extensible-element 
+  carousel
+  div
+  (class: "carousel" class-join))
 
 (define (bootstrap-files)
   (list
     (page js/jquery-3.2.1.slim.min.js 
           (file->string (build-path js "jquery-3.2.1.slim.min.js")))
+    
+    (page js/font-awesome.js 
+          (file->string (build-path js "font-awesome.js")))
 
     (page js/bootstrap.bundle.min.js 
           (file->string (build-path js "bootstrap.bundle.min.js")))
@@ -109,6 +121,11 @@
   (append
     (flatten site)
     (bootstrap-files)))
+
+(define (responsive-row #:columns columns . items)
+  (define row-size (max 1 (min 12 (exact-round (/ 12 columns)))))
+  (apply row (map (curry div class: (~a "col-lg-" row-size
+                                        " col-xs-12 my-3")) items)))
 
 
 
