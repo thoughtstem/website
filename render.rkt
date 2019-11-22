@@ -1,8 +1,7 @@
 #lang racket
 
 (provide render site-dir page-dir
-         (rename-out [make-sub sub-site])
-         )
+         (rename-out [make-sub sub-site]))
 
 (require "./page.rkt" 
          "./path-prefix.rkt"
@@ -47,7 +46,7 @@
     (for ([p (flatten site)])
       (cond
         [(page? p) (render-page p output-dir)]
-        [(sub? p)  (render-sub p output-dir)]
+        [(sub?  p) (render-sub p output-dir)]
         [else (error "You can only render a list of pages or subs")]))))
 
 (define (render-sub s output-dir)
@@ -67,6 +66,7 @@
 
   (define path (apply build-path 
                       (cons output-dir path-parts))) 
+
   (define folder-path (apply build-path 
                              (cons output-dir folder-parts))) 
 
@@ -92,4 +92,7 @@
 
 (define (preprocess content)
   content)
+
+
+
 

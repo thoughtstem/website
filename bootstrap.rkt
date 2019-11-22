@@ -1,4 +1,4 @@
-#lang racket
+#lang at-exp racket
 
 (provide bootstrap
          content
@@ -52,12 +52,19 @@
       (include-js "/js/jquery-3.2.1.slim.min.js")
       body-content
       (include-bootstrap-js)
+      (script/inline 
+        @~a{
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          })
+        })
+      
       (include-font-awesome-js))))
 
 (define (navbar #:brand (brand "BRAND/LOGO HERE")
                 . content)
   (nav class: "navbar sticky-top navbar-expand-md navbar-dark bg-dark"
-            (a href: (add-path-prefix "/index.html") 
+            (a href: (prefix/pathify "/index.html") 
                class: "navbar-brand" 
                brand) 
             (ul class: "navbar-nav ml-auto"
