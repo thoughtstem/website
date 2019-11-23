@@ -118,3 +118,9 @@
 
 (define/provide-style position:)
 
+(define/provide-style content:)
+
+(define/provide-style -webkit-filter:)
+
+(define/provide-style text-decoration:)
+
