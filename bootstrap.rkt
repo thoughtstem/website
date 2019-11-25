@@ -12,6 +12,7 @@
          include-bootstrap-js
          include-bootstrap-css
          (all-from-out "./bootstrap/buttons.rkt")
+         (all-from-out "./bootstrap/modal.rkt")
          (all-from-out "./bootstrap/cards.rkt")
          (all-from-out "./bootstrap/col.rkt")
          (all-from-out "./main.rkt"))
@@ -20,6 +21,7 @@
          "./define-extensible-element.rkt"
          "./bootstrap/buttons.rkt"
          "./bootstrap/cards.rkt"
+         "./bootstrap/modal.rkt"
          "./bootstrap/col.rkt"
          "./util.rkt"
          "./path-prefix.rkt"
