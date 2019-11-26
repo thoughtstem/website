@@ -14,6 +14,7 @@
          (all-from-out "./bootstrap/buttons.rkt")
          (all-from-out "./bootstrap/modal.rkt")
          (all-from-out "./bootstrap/cards.rkt")
+         (all-from-out "./bootstrap/badges.rkt")
          (all-from-out "./bootstrap/col.rkt")
          (all-from-out "./main.rkt"))
 
@@ -21,6 +22,7 @@
          "./define-extensible-element.rkt"
          "./bootstrap/buttons.rkt"
          "./bootstrap/cards.rkt"
+         "./bootstrap/badges.rkt"
          "./bootstrap/modal.rkt"
          "./bootstrap/col.rkt"
          "./util.rkt"
@@ -52,6 +54,7 @@
 
     (body
       (include-js "/js/jquery-3.2.1.slim.min.js")
+      (include-js "/js/moment.min.js")
       body-content
       (include-bootstrap-js)
       (script/inline 
@@ -106,6 +109,9 @@
 
 (define (bootstrap-files)
   (list
+    (page js/moment.min.js
+          (file->string (build-path js "moment.min.js")))
+
     (page js/jquery-3.2.1.slim.min.js 
           (file->string (build-path js "jquery-3.2.1.slim.min.js")))
     
