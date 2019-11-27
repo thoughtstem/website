@@ -54,7 +54,9 @@
       (include-bootstrap-css))
 
     (body
+      #;
       (include-js "/js/jquery-3.2.1.slim.min.js")
+      (include-js "/js/jquery-3.4.1.min.js")
       (include-js "/js/moment.min.js")
       body-content
       (include-bootstrap-js)
@@ -92,8 +94,13 @@
     (page js/moment.min.js
           (file->string (build-path js "moment.min.js")))
 
-    (page js/jquery-3.2.1.slim.min.js 
-          (file->string (build-path js "jquery-3.2.1.slim.min.js")))
+    (page ;js/jquery-3.2.1.slim.min.js 
+          js/jquery-3.4.1.min.js
+          (file->string 
+            (build-path js "jquery-3.4.1.min.js")
+
+            #;
+            (build-path js "jquery-3.2.1.slim.min.js")))
     
     (page js/font-awesome.js 
           (file->string (build-path js "font-awesome.js")))
