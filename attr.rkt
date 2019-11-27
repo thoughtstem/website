@@ -39,3 +39,4 @@
 (define/provide-attr data-target:)
 (define/provide-attr data-slide:)
 (define/provide-attr data-slide-to:)
+(define/provide-attr target:)
