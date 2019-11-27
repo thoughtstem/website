@@ -351,6 +351,41 @@ Once such example:
 
 @defproc[(col-sm-4 [#:element element div] [content (or/c element? attribute?)]) element?]{}
 
+@section{Tabs}
+
+@defproc[(nav-tabs [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(active-nav-item [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(tab-content [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(tab-pane [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(active-tab-pane [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(tab-nav-link [#:element element div] [content (or/c element? attribute?)]) element?]{}
+@defproc[(active-tab-nav-link [#:element element div] [content (or/c element? attribute?)]) element?]{}
+
+@defproc[(tabify content ...)]) element?]{
+  Sorts any @racket[nav-link] items from any @racket[tab-pane] items.  Constructs the appropriate HTML structure for (single-page) tabbed navigation of content.
+
+  The hrefs (for @racket[nav-link] items) and ids (for @racket[tab-pane] items) must match, as would be the case if you were constructing your Bootstrap HTML by hand.  
+
+  For example, here are four tabs with four panes.
+
+  @code{
+    (tabify
+      (active-tab-nav-link href: "#s-g" "Story to Game")
+      (tab-nav-link href: "#g-s" "Game to Story")
+      (tab-nav-link href: "#g-g" "Game to Game")
+      (tab-nav-link href: "#s-s" "Story to Story")
+      (active-tab-pane id: "s-g" 
+       (h3 "Story to Game"))
+      (tab-pane id: "g-s" 
+       (h3 "Game to Story"))
+      (tab-pane id: "g-g" 
+       (h3 "Game to Game"))
+      (tab-pane id: "s-s" 
+       (h3 "Story to Story"))
+  }
+
+}
+
 @section{Cards}
 
 Bootstrap's cards are a key aspect of Bootstrap's visual language. 

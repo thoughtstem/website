@@ -2,12 +2,9 @@
 
 (provide bootstrap
          content
-         navbar
 ;         container
          row
          responsive-row
-         nav-item
-         nav-link
          bootstrap-files
          include-bootstrap-js
          include-bootstrap-css
@@ -16,6 +13,8 @@
          (all-from-out "./bootstrap/cards.rkt")
          (all-from-out "./bootstrap/badges.rkt")
          (all-from-out "./bootstrap/col.rkt")
+         (all-from-out "./bootstrap/tabs.rkt")
+         (all-from-out "./bootstrap/nav.rkt")
          (all-from-out "./main.rkt"))
 
 (require (except-in "./main.rkt" col)
@@ -25,6 +24,8 @@
          "./bootstrap/badges.rkt"
          "./bootstrap/modal.rkt"
          "./bootstrap/col.rkt"
+         "./bootstrap/tabs.rkt"
+         "./bootstrap/nav.rkt"
          "./util.rkt"
          "./path-prefix.rkt"
          racket/runtime-path)
@@ -65,27 +66,6 @@
         })
       
       (include-font-awesome-js))))
-
-(define (navbar #:brand (brand "BRAND/LOGO HERE")
-                . content)
-  (nav class: "navbar sticky-top navbar-expand-md navbar-dark bg-dark"
-            (a href: (prefix/pathify "/index.html") 
-               class: "navbar-brand" 
-               brand) 
-            (ul class: "navbar-nav ml-auto"
-                content))
-       )
-
-(define (nav-item content)
-  (li class: "nav-item"
-      content))
-
-(define (nav-link to text)
-  (nav-item
-    (a class: "nav-link mr-3" 
-       href: (pathify (add-path-prefix to)) 
-       text)))
-
 
 (define/provide-extensible-element
   container

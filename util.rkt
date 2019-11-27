@@ -11,6 +11,7 @@
          
          get-attribute
          has-attribute?
+         has-class?
 
          html/inline
          
@@ -159,6 +160,11 @@
    '("HI"))
   )
 
+
+(define (has-class? class e )
+  (and (has-attribute? 'class: e)
+       (member class 
+         (string-split (get-attribute 'class: e) " "))))
 
 (define (has-attribute? attr e )
   (member 
