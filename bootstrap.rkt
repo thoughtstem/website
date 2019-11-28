@@ -107,6 +107,16 @@
   div
   (class: "carousel" class-join))
 
+(define/provide-extensible-element 
+  carousel-inner
+  div
+  (class: "carousel-inner" class-join))
+
+(define/provide-extensible-element 
+  carousel-item
+  div
+  (class: "carousel-item" class-join))
+
 (define (bootstrap-files)
   (list
     (page js/moment.min.js
