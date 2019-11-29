@@ -99,6 +99,11 @@
   div
   (class: "carousel-item" class-join))
 
+(define/provide-extensible-element 
+  accordion
+  div
+  (id: "accordion" class-join))
+
 (define (bootstrap-files)
   (list
     (page js/moment.min.js

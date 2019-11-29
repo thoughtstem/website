@@ -38,7 +38,7 @@
         @script/inline{
 (function(){
   var element = document.getElementById('html-inline-@id');
-  element.innerHTML = '@fixed-str';
+  element.innerHTML = '@(string-replace fixed-str "\n" "")';
 })();}))
 
 (define (get-path p)
