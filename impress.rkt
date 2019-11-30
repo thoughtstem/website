@@ -107,12 +107,17 @@
 
 (define (impress 
           #:transition-duration (td 1000)
+          #:body-scrollbar? (body-scrollbar? #f)
           . contents)
   (list
     (div id: "impress" 
          'data-transition-duration: (~a td)
          contents)
     (include-impress-js)
-    (impress-init)))
+    (impress-init)
+    ;Impress hides the body scrollbar by default,
+    ;  This js line below reverses that.
+    (when body-scrollbar?
+      @script/inline{document.querySelector("body").style.overflow = "scroll"})))
 
 
