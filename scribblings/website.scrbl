@@ -381,7 +381,7 @@ Once such example:
       (tab-pane id: "g-g" 
        (h3 "Game to Game"))
       (tab-pane id: "s-s" 
-       (h3 "Story to Story"))
+       (h3 "Story to Story")))
   }
 
 }
