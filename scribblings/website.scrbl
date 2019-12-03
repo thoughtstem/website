@@ -361,7 +361,7 @@ Once such example:
 @defproc[(tab-nav-link [#:element element div] [content (or/c element? attribute?)]) element?]{}
 @defproc[(active-tab-nav-link [#:element element div] [content (or/c element? attribute?)]) element?]{}
 
-@defproc[(tabify content ...)]) element?]{
+@defproc[(tabify [content any/c]...) element?]{
   Sorts any @racket[nav-link] items from any @racket[tab-pane] items.  Constructs the appropriate HTML structure for (single-page) tabbed navigation of content.
 
   The hrefs (for @racket[nav-link] items) and ids (for @racket[tab-pane] items) must match, as would be the case if you were constructing your Bootstrap HTML by hand.  
@@ -381,7 +381,7 @@ Once such example:
       (tab-pane id: "g-g" 
        (h3 "Game to Game"))
       (tab-pane id: "s-s" 
-       (h3 "Story to Story"))
+       (h3 "Story to Story")))
   }
 
 }
