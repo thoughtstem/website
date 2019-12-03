@@ -1,4 +1,7 @@
 #lang racket
+
+(provide preview)
+
 (require web-server/servlet
          web-server/servlet-env)
 (require web-server/private/mime-types)
@@ -69,14 +72,19 @@
     (serve-file file-path)
     (welcome)))
 
+(define (preview)
+  (if path-prefix
+    (serve/servlet my-app
+                   #:servlet-path (~a "/" path-prefix "/")
+                   #:servlet-regexp (regexp (~a path-prefix ".*"))
+                   #:extra-files-paths
+                   (list (build-path "./")))
+    (serve/servlet my-app
+                   #:servlet-path (~a "/website-preview")
+                   #:extra-files-paths
+                   (list (build-path "./")))))
 
-(if path-prefix
-  (serve/servlet my-app
-                 #:servlet-path (~a "/" path-prefix "/")
-                 #:servlet-regexp (regexp (~a path-prefix ".*"))
-                 #:extra-files-paths
-                 (list (build-path "./")))
-  (serve/servlet my-app
-                 #:servlet-path (~a "/website-preview")
-                 #:extra-files-paths
-                 (list (build-path "./"))))
+(module+ main
+  (preview))
+
+
