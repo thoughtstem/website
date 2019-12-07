@@ -51,7 +51,8 @@
   (html
     (head
       head-content
-      (include-bootstrap-css))
+      (include-bootstrap-css)
+      (meta 'charset: "utf-8"))
 
     (body
       #;
