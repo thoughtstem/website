@@ -103,7 +103,7 @@
 (define/provide-extensible-element 
   accordion
   div
-  (id: "accordion" class-join))
+  (class: "accordion" class-join))
 
 (define (bootstrap-files)
   (list
