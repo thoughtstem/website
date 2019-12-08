@@ -31,7 +31,7 @@
 (define/provide-extensible-element 
   active-tab-pane
   div
-  (class: "tab-pane fade in active" class-join))
+  (class: "tab-pane fade show active" class-join))
 
 (define/provide-extensible-element 
   tab-nav-link 
@@ -49,6 +49,10 @@
   (define links (filter (curry has-class? "nav-link") (flatten stuff)))
   (define panes (filter (curry has-class? "tab-pane") (flatten stuff)))
 
+
   (list
     (nav-tabs (map nav-item links))
     (tab-content panes)))
+
+
+
