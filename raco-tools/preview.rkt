@@ -35,6 +35,8 @@
                        [(string-contains? last-part ".png") #"image/png"]
                        [(string-contains? last-part ".jpg") #"image/jpeg"]
                        [(string-contains? last-part ".svg") #"image/svg+xml"]
+                       [(string-contains? last-part ".css") #"text/css"]
+                       [(string-contains? last-part ".js")  #"text/js"]
                        [else
                          TEXT/HTML-MIME-TYPE] )
    '() ;Headers
