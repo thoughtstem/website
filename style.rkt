@@ -128,3 +128,5 @@
 
 (define/provide-style text-decoration:)
 
+(define/provide-style white-space:)
+

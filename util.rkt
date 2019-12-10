@@ -6,6 +6,7 @@
          filter-element
          element?
          element->contents
+         element->string
          query
          paras
          
@@ -65,6 +66,14 @@
   (check-true
     (element? (h1 "HI"))))
 
+(define (element->string e)
+  (with-output-to-string
+    (thunk (output-xml e))))
+
+(module+ test
+  (check-equal? 
+    (element->string (p "HI"))
+    "<p>HI</p>"))
 
 (define/contract (element->contents e)
   (-> (or/c string? element?)
