@@ -1,6 +1,6 @@
 #lang racket
 
-(provide render site-dir page-dir
+(provide render site-dir page-dir sub-site-dir
          (rename-out [make-sub sub-site]))
 
 (require "./page.rkt" 
@@ -13,6 +13,7 @@
 
 (define site-dir (make-parameter #f))
 (define page-dir (make-parameter #f))
+(define sub-site-dir (make-parameter #f))
 
 (define should-write-prefix (make-parameter #t))
 
@@ -39,6 +40,8 @@
   ;Marks the site so that at render time, it will produce page paths with the sub-path cons'ed (push-path), and with the links rendered appropriately (with-prefix)
   (sub sub-path site))
 
+
+
 (define (render site #:to output-dir)
   (write-prefix-file! output-dir)
 
@@ -54,7 +57,11 @@
   (define site   (sub-site s)) 
 
   ;Push the prefix on both the one that generates links and the page locations themselves
-  (parameterize ([should-write-prefix #f])
+  (parameterize ([should-write-prefix #f]
+                 [sub-site-dir 
+                   (build-path 
+                     (or (sub-site-dir) 'same) 
+                     prefix)])
     (with-prefix (~a (path-prefix) "/" prefix)
                  (render (push-path prefix site)
                          #:to output-dir))))
