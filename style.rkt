@@ -96,6 +96,8 @@
 
 (define/provide-style width:)
 (define/provide-style height:)
+(define/provide-style min-width:)
+(define/provide-style min-height:)
 
 (define/provide-style vertical-align:)
 (define/provide-style text-align:)
@@ -123,4 +125,6 @@
 (define/provide-style -webkit-filter:)
 
 (define/provide-style text-decoration:)
+
+(define/provide-style white-space:)
 
