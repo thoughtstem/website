@@ -96,6 +96,10 @@
 
 (define/provide-style width:)
 (define/provide-style height:)
+(define/provide-style min-width:)
+(define/provide-style min-height:)
+(define/provide-style max-width:)
+(define/provide-style max-height:)
 
 (define/provide-style vertical-align:)
 (define/provide-style text-align:)
