@@ -18,13 +18,15 @@
          
          map-element
          collect-all
-         scrape-out)
+         scrape-out
+         check-elements-equal?)
 
 (require scribble/html/html
          (only-in scribble/html/xml
                   attribute?)
          "./page.rkt"
-         "./path-prefix.rkt")
+         "./path-prefix.rkt"
+         (only-in rackunit check-equal?))
 
 (define html-inline-id 0)
 
@@ -386,6 +388,11 @@
                 element)
   
   ret)
+
+(define (check-elements-equal? x y)
+  (check-equal?
+   (element->string x)
+   (element->string y)))
 
 
 
