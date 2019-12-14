@@ -19,12 +19,15 @@
          map-element
          collect-all
          scrape-out
-         check-elements-equal?)
+         check-elements-equal?
+
+         inline-pre)
 
 (require scribble/html/html
          (only-in scribble/html/xml
                   attribute?)
          "./page.rkt"
+         "./style.rkt"
          "./path-prefix.rkt"
          (only-in rackunit check-equal?))
 
@@ -394,6 +397,10 @@
    (element->string x)
    (element->string y)))
 
+
+(define (inline-pre . content)
+  (pre 'style: (properties display: "inline")
+    content))
 
 
 
