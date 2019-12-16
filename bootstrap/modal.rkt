@@ -37,3 +37,4 @@
   modal-footer
   div
   (class: "modal-footer" class-join))
+
