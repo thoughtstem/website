@@ -8,6 +8,8 @@
          bootstrap-files
          include-bootstrap-js
          include-bootstrap-css
+         include-p5-js
+         
          (all-from-out "./bootstrap/buttons.rkt")
          (all-from-out "./bootstrap/modal.rkt")
          (all-from-out "./bootstrap/cards.rkt")
@@ -47,6 +49,10 @@
 (define (include-font-awesome-js)
   (list 
     (include-js "/js/font-awesome.js" )))
+
+(define (include-p5-js)
+  (list 
+    (include-js "/js/p5.min.js" )))
 
 (define (content #:head (head-content '()) 
                  .  body-content)
@@ -118,6 +124,9 @@
     
     (page js/font-awesome.js 
           (file->string (build-path js "font-awesome.js")))
+
+    (page js/p5.min.js 
+          (file->string (build-path js "p5.min.js")))
 
     (page js/bootstrap.bundle.min.js 
           (file->string (build-path js "bootstrap.bundle.min.js")))
