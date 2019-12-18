@@ -92,6 +92,7 @@
   (cond
     [(string? c) (displayln c)]
     [(image? c) (save-image c path)]
+    [(path? c) (copy-file c path #t)]
     [else (displayln 
             (xml->string 
               (preprocess (page-content p))))]))
