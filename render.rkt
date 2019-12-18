@@ -37,7 +37,9 @@
 
 (struct sub (path site))
 (define (make-sub sub-path site)
-  ;Marks the site so that at render time, it will produce page paths with the sub-path cons'ed (push-path), and with the links rendered appropriately (with-prefix)
+  ;Marks the site so that at render time, it will produce page paths 
+  ;with the sub-path cons'ed (push-path), and with the links rendered appropriately (with-prefix)
+
   (sub sub-path site))
 
 
@@ -62,7 +64,9 @@
                    (build-path 
                      (or (sub-site-dir) 'same) 
                      prefix)])
-    (with-prefix (~a (path-prefix) "/" prefix)
+    (with-prefix (if (path-prefix) 
+                   (~a (path-prefix) "/" prefix)
+                   (~a prefix))
                  (render (push-path prefix site)
                          #:to output-dir))))
 
