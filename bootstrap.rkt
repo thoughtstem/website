@@ -17,6 +17,7 @@
          (all-from-out "./bootstrap/col.rkt")
          (all-from-out "./bootstrap/tabs.rkt")
          (all-from-out "./bootstrap/nav.rkt")
+         (all-from-out "./bootstrap/accordion.rkt")
          (all-from-out "./main.rkt"))
 
 (require (except-in "./main.rkt" col)
@@ -28,6 +29,7 @@
          "./bootstrap/col.rkt"
          "./bootstrap/tabs.rkt"
          "./bootstrap/nav.rkt"
+         "./bootstrap/accordion.rkt"
          "./util.rkt"
          "./path-prefix.rkt"
          racket/runtime-path)
@@ -106,10 +108,6 @@
   div
   (class: "carousel-item" class-join))
 
-(define/provide-extensible-element 
-  accordion
-  div
-  (class: "accordion" class-join))
 
 (define (bootstrap-files)
   (list
