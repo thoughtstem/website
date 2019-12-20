@@ -40,3 +40,7 @@
 (define/provide-attr data-slide:)
 (define/provide-attr data-slide-to:)
 (define/provide-attr target:)
+(define/provide-attr allow:)
+(define/provide-attr frameborder:)
+(define/provide-attr allowfullscreen:)
+
