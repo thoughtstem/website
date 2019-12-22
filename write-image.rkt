@@ -1,6 +1,8 @@
 #lang racket
 
 (provide write-image
+         reset-image-id
+         should-save-images?
          (rename-out [write-image write-img]))
 
 (require
@@ -25,7 +27,14 @@
              'src: (add-path-prefix (~a "/" save-path))
              (drop-right content 1)))))
 
+
 (define next-i 0)
+(define (reset-image-id)
+  (set! next-i 0))
+
+
+(define should-save-images? (make-parameter #t))
+
 (define (save-image i)
   (set! next-i (add1 next-i))
 
@@ -37,14 +46,16 @@
              (build-path (site-dir) 
                          f)])
 
-      (save-svg-image i path)
+      (when (should-save-images?)
+        (save-svg-image i path))
       f)
 
     (let* ([f (~a r ".png")]
            [path 
              (build-path (site-dir) 
                          f)])
-      (save-pict i path 'png)
+      (when (should-save-images?)
+        (save-pict i path 'png))
       f)))
 
 (define (save-pict the-pict name kind)
