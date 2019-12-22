@@ -1,7 +1,7 @@
 #lang racket
 
 (provide write-image
-         reset-image-id
+         reset-image-id!
          should-save-images?
          (rename-out [write-image write-img]))
 
@@ -29,7 +29,7 @@
 
 
 (define next-i 0)
-(define (reset-image-id)
+(define (reset-image-id!)
   (set! next-i 0))
 
 
