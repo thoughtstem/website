@@ -36,6 +36,7 @@
 (define/provide-attr cols:)
 (define/provide-attr role:)
 (define/provide-attr data-ride:)
+(define/provide-attr data-toggle:)
 (define/provide-attr data-target:)
 (define/provide-attr data-slide:)
 (define/provide-attr data-slide-to:)
