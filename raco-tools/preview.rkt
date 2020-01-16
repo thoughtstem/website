@@ -77,11 +77,13 @@
 (define (preview)
   (if path-prefix
     (serve/servlet my-app
+                   #:listen-ip #f
                    #:servlet-path (~a "/" path-prefix "/")
                    #:servlet-regexp (regexp (~a path-prefix ".*"))
                    #:extra-files-paths
                    (list (build-path "./")))
     (serve/servlet my-app
+                   #:listen-ip #f
                    #:servlet-path (~a "/website-preview")
                    #:extra-files-paths
                    (list (build-path "./")))))
