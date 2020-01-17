@@ -52,9 +52,20 @@
     (page->path p)
     p))
 
-(define (include-js src)
-  (script 'src: 
-          (pathify (add-path-prefix (get-path src)))))
+(define (include-js src #:tag [tag 'normal])
+  (cond
+    [(eq? tag 'async) (script 'async: ""
+                              'src: 
+                              (pathify (add-path-prefix (get-path src))))]
+    [(eq? tag 'defer) (script 'defer: ""
+                              'src: 
+                              (pathify (add-path-prefix (get-path src))))]
+    [else             (script 'src: 
+                              (pathify (add-path-prefix (get-path src))))]
+
+    )
+
+  )
 
 (define (include-css href)
    (link 'rel: "stylesheet" 'type: "text/css" 'href: 

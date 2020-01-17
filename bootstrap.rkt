@@ -40,19 +40,19 @@
 
 (define (include-bootstrap-js)
   (list 
-    (include-js "/js/bootstrap.bundle.min.js" )))
+    (include-js "/js/bootstrap.bundle.min.js")))
 
 (define (include-bootstrap-css)
   (list 
-    (include-css "/css/bootstrap.min.css" )))
+    (include-css "/css/bootstrap.min.css")))
 
 (define (include-font-awesome-js)
   (list 
-    (include-js "/js/font-awesome.js" )))
+    (include-js "/js/font-awesome.js" #:tag 'async)))
 
 (define (include-p5-js)
   (list 
-    (include-js "/js/p5.min.js" )))
+    (include-js "/js/p5.min.js" #:tag 'async)))
 
 (define (content #:head (head-content '()) 
                  .  body-content)
@@ -68,7 +68,7 @@
       #;
       (include-js "/js/jquery-3.2.1.slim.min.js")
       (include-js "/js/jquery-3.4.1.min.js")
-      (include-js "/js/moment.min.js")
+      (include-js "/js/moment.min.js" #:tag 'async)
       body-content
       (include-bootstrap-js)
       (script/inline 
