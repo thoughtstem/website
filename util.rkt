@@ -2,6 +2,8 @@
 
 (provide include-js 
          include-css
+         include-deferred-css
+         
          findf-element
          filter-element
          element?
@@ -66,6 +68,17 @@
     )
 
   )
+
+;<link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+;<noscript><link rel="stylesheet" href="styles.css"></noscript>
+
+(define (include-deferred-css href)
+  (list (link 'rel: "preload"
+              'href: (pathify (add-path-prefix (get-path href)))
+              'as: "style"
+              'onload: "this.onload=null;this.rel='stylesheet'")
+        (noscript (link 'rel: "stylesheet"
+                        'href: (pathify (add-path-prefix (get-path href)))))))
 
 (define (include-css href)
    (link 'rel: "stylesheet" 'type: "text/css" 'href: 

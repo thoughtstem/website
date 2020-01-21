@@ -42,13 +42,18 @@
   (list 
     (include-js "/js/bootstrap.bundle.min.js")))
 
-(define (include-bootstrap-css)
-  (list 
-    (include-css "/css/bootstrap.min.css")))
+(define (include-bootstrap-css #:defer [defer #f])
+  (if defer
+      (list
+       (include-deferred-css "/css/bootstrap.min.css"))
+      (list 
+       (include-css "/css/bootstrap.min.css"))))
 
 (define (include-font-awesome-js)
   (list 
     (include-js "/js/font-awesome.js" #:tag 'async)))
+
+;TODO: include-font-awesome-css
 
 (define (include-p5-js)
   (list 
@@ -58,11 +63,13 @@
                  .  body-content)
   (html
     (head
-      head-content
-      (include-bootstrap-css)
+      ;head-content
+      (include-bootstrap-css #:defer #t)
       (meta 'charset: "utf-8")
       (meta name: "viewport"
-            content: "width=device-width, initial-scale=1, shrink-to-fit=no"))
+            content: "width=device-width, initial-scale=1, shrink-to-fit=no")
+      head-content
+      )
 
     (body
       #;
