@@ -73,12 +73,21 @@
   (list 
     (include-js "/js/p5.min.js" #:tag 'async)))
 
+(define (feature-checks)
+  @script/inline{
+  function preloadSupported() {
+    var relList = document.createElement('link').relList;
+    return !!(relList && relList.supports && relList.supports('preload'));
+  }
+ })
+
 (define (content #:head (head-content '()) 
 		 #:defer-css (defer #f)
                  .  body-content)
   (html
     (head
       ;head-content
+      (feature-checks)
       (include-bootstrap-css #:defer defer)
       (include-font-awesome-css #:defer defer)
       (meta 'charset: "utf-8")
@@ -88,6 +97,7 @@
       )
 
     (body
+      
       #;
       (include-js "/js/jquery-3.2.1.slim.min.js")
       (include-js "/js/jquery-3.4.1.min.js")

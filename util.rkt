@@ -73,10 +73,26 @@
 ;<noscript><link rel="stylesheet" href="styles.css"></noscript>
 
 (define (include-deferred-css href)
-  (list (link 'rel: "preload"
+  (list #;(link 'rel: "preload"
               'href: (pathify (add-path-prefix (get-path href)))
               'as: "style"
               'onload: "this.onload=null;this.rel='stylesheet'")
+        @script/inline{
+ if (preloadSupported()){
+  var cssLink = document.createElement('link');
+  cssLink.rel = 'preload';
+  cssLink.as = 'style';
+  cssLink.onload = function(){this.onload=null;this.rel="stylesheet"};
+  cssLink.href = '@(pathify (add-path-prefix (get-path href)))';
+  document.head.appendChild(cssLink);
+ }
+ else{
+  var cssLink = document.createElement('link');
+  cssLink.rel = 'stylesheet';
+  cssLink.href = '@(pathify (add-path-prefix (get-path href)))';
+  document.head.appendChild(cssLink);
+ }
+}
         (noscript (link 'rel: "stylesheet"
                         'href: (pathify (add-path-prefix (get-path href)))))))
 
