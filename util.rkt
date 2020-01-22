@@ -409,9 +409,16 @@
    (element->string y)))
 
 
-(define (inline-pre . content)
-  (pre 'style: (properties display: "inline")
+(define (inline-pre #:light-text? [light-text? #f] . content)
+  (define (text-color)
+    (if light-text?
+        "text-white"
+        ""))
+  (pre 'class: (text-color)
+       'style: (properties display: "inline")
     content))
+
+
 
 
 
