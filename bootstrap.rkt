@@ -36,6 +36,7 @@
 
 (define-runtime-path js "bootstrap/js")
 (define-runtime-path css "bootstrap/css")
+(define-runtime-path webfonts "bootstrap/webfonts")
 
 
 (define (include-bootstrap-js)
@@ -54,6 +55,19 @@
     (include-js "/js/font-awesome.js" #:tag 'async)))
 
 ;TODO: include-font-awesome-css
+(define (include-font-awesome-css #:defer [defer #f])
+  (if defer
+      (list
+       (include-deferred-css "/css/fontawesome.min.css")
+       (include-deferred-css "/css/fontawesome-brands.min.css")
+       (include-deferred-css "/css/fontawesome-solid.min.css"))
+      (list
+       (include-css "/css/fontawesome.min.css")
+       (include-css "/css/fontawesome-brands.min.css")
+       (include-css "/css/fontawesome-solid.min.css"))))
+       
+
+
 
 (define (include-p5-js)
   (list 
@@ -65,6 +79,7 @@
     (head
       ;head-content
       (include-bootstrap-css #:defer #t)
+      (include-font-awesome-css #:defer #t)
       (meta 'charset: "utf-8")
       (meta name: "viewport"
             content: "width=device-width, initial-scale=1, shrink-to-fit=no")
@@ -85,7 +100,8 @@
           })
         })
       
-      (include-font-awesome-js))))
+      ;(include-font-awesome-js)
+      )))
 
 (define/provide-extensible-element
   container
@@ -121,28 +137,56 @@
 (define (bootstrap-files)
   (list
     (page js/moment.min.js
-          (file->string (build-path js "moment.min.js")))
+          (build-path js "moment.min.js"))
 
     (page ;js/jquery-3.2.1.slim.min.js 
           js/jquery-3.4.1.min.js
-          (file->string 
-            (build-path js "jquery-3.4.1.min.js")
+          (build-path js "jquery-3.4.1.min.js")
 
             #;
-            (build-path js "jquery-3.2.1.slim.min.js")))
+            (build-path js "jquery-3.2.1.slim.min.js"))
     
-    (page js/font-awesome.js 
-          (file->string (build-path js "font-awesome.js")))
+    ;(page js/font-awesome.js 
+    ;      (build-path js "font-awesome.js"))
 
     (page js/p5.min.js 
-          (file->string (build-path js "p5.min.js")))
+          (build-path js "p5.min.js"))
 
     (page js/bootstrap.bundle.min.js 
-          (file->string (build-path js "bootstrap.bundle.min.js")))
+          (build-path js "bootstrap.bundle.min.js"))
 
     (page css/bootstrap.min.css 
-          (file->string 
-            (build-path css "bootstrap.min.css")))))
+          (build-path css "bootstrap.min.css"))
+    
+    (page css/fontawesome.min.css 
+          (build-path css "fontawesome.min.css"))
+    (page css/fontawesome-brands.min.css 
+          (build-path css "fontawesome-brands.min.css"))
+    (page css/fontawesome-solid.min.css 
+          (build-path css "fontawesome-solid.min.css"))
+
+    (page webfonts/fa-brands-400.eot
+          (build-path webfonts "fa-brands-400.eot"))
+    (page webfonts/fa-brands-400.svg
+          (build-path webfonts "fa-brands-400.svg"))
+    (page webfonts/fa-brands-400.ttf
+          (build-path webfonts "fa-brands-400.ttf"))
+    (page webfonts/fa-brands-400.woff
+          (build-path webfonts "fa-brands-400.woff"))
+    (page webfonts/fa-brands-400.woff2
+          (build-path webfonts "fa-brands-400.woff2"))
+
+    (page webfonts/fa-solid-900.eot
+          (build-path webfonts "fa-solid-900.eot"))
+    (page webfonts/fa-solid-900.svg
+          (build-path webfonts "fa-solid-900.svg"))
+    (page webfonts/fa-solid-900.ttf
+          (build-path webfonts "fa-solid-900.ttf"))
+    (page webfonts/fa-solid-900.woff
+          (build-path webfonts "fa-solid-900.woff"))
+    (page webfonts/fa-solid-900.woff2
+          (build-path webfonts "fa-solid-900.woff2"))
+    ))
 
 (define (bootstrap site)
   (append
