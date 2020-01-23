@@ -86,13 +86,13 @@
                  .  body-content)
   (html
     (head
-      ;head-content
-      (feature-checks)
-      (include-bootstrap-css #:defer defer)
-      (include-font-awesome-css #:defer defer)
       (meta 'charset: "utf-8")
       (meta name: "viewport"
             content: "width=device-width, initial-scale=1, shrink-to-fit=no")
+      (feature-checks)
+      (include-bootstrap-css #:defer defer)
+      (include-font-awesome-css #:defer defer)
+      
       head-content
       )
 
@@ -168,6 +168,9 @@
 
     (page css/bootstrap.min.css 
           (build-path css "bootstrap.min.css"))
+
+    (page css/bootstrap.min.css.map 
+          (build-path css "bootstrap.min.css.map"))
     
     (page css/fontawesome.min.css 
           (build-path css "fontawesome.min.css"))
