@@ -38,6 +38,9 @@
 (define-runtime-path css "bootstrap/css")
 (define-runtime-path webfonts "bootstrap/webfonts")
 
+(define (include-modernizr-js)
+  (list
+   (include-js "/js/modernizr-custom.js" #:tag 'async)))
 
 (define (include-bootstrap-js)
   (list 
@@ -84,12 +87,13 @@
 (define (content #:head (head-content '()) 
 		 #:defer-css (defer #f)
                  .  body-content)
-  (html
+   (html
     (head
       (meta 'charset: "utf-8")
       (meta name: "viewport"
             content: "width=device-width, initial-scale=1, shrink-to-fit=no")
       (feature-checks)
+      (include-modernizr-js)
       (include-bootstrap-css #:defer defer)
       (include-font-awesome-css #:defer defer)
       
@@ -112,7 +116,8 @@
         })
       
       ;(include-font-awesome-js)
-      )))
+      ))
+  )
 
 (define/provide-extensible-element
   container
@@ -165,6 +170,9 @@
 
     (page js/bootstrap.bundle.min.js 
           (build-path js "bootstrap.bundle.min.js"))
+
+    (page js/modernizr-custom.js
+          (build-path js "modernizr-custom.js"))
 
     (page css/bootstrap.min.css 
           (build-path css "bootstrap.min.css"))
