@@ -45,4 +45,5 @@
 (define/provide-attr frameborder:)
 (define/provide-attr allowfullscreen:)
 (define/provide-attr alt:)
+(define/provide-attr srcset:)
 

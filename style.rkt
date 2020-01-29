@@ -117,6 +117,7 @@
 
 
 (define/provide-style object-fit:)
+(define/provide-style object-position:)
 
 (define/provide-style clear:)
 
