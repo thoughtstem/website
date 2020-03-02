@@ -9,7 +9,8 @@
                   image?
                   save-image))
 
-(require scribble/html/xml)
+(require scribble/html/xml
+         scribble/html/html)
 
 (define site-dir (make-parameter #f))
 (define page-dir (make-parameter #f))
@@ -103,7 +104,8 @@
 
 
 (define (preprocess content)
-  content)
+  (list (doctype 'html)
+        content))
 
 
 
