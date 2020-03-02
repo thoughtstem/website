@@ -18,18 +18,16 @@
 
 ;Crunches lists down to strings.
 (define (pathify path)
-  (simplify-slashes
   (cond
     [(string? path) 
      (if (string-prefix? path "/")
-       path
-       (if (has-protocol? path) 
-         path
-         (~a "/" path))
-
-       #;
-       (~a "/" path))]
-    [(list? path) (~a "/" (string-join path "/"))])))
+	 (simplify-slashes path)
+	 (if (has-protocol? path) 
+	     path
+	     (simplify-slashes (~a "/" path))))]
+    [(list? path) 
+     (simplify-slashes 
+       (~a "/" (string-join path "/")))]))
 
 (define (has-protocol? p)
  (cond
