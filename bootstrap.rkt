@@ -18,6 +18,7 @@
          (all-from-out "./bootstrap/tabs.rkt")
          (all-from-out "./bootstrap/nav.rkt")
          (all-from-out "./bootstrap/accordion.rkt")
+         (all-from-out "./bootstrap/alerts.rkt")
          (all-from-out "./main.rkt"))
 
 (require (except-in "./main.rkt" col)
@@ -30,6 +31,7 @@
          "./bootstrap/tabs.rkt"
          "./bootstrap/nav.rkt"
          "./bootstrap/accordion.rkt"
+         "./bootstrap/alerts.rkt"
          "./util.rkt"
          "./path-prefix.rkt"
          racket/runtime-path)
