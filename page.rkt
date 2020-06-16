@@ -5,7 +5,8 @@
          (rename-out [make-page page])
          push-path
          site
-         page->path) 
+         page->path
+	 change-page-path) 
 
 (require syntax/parse/define
          (for-syntax racket/string))
@@ -34,6 +35,10 @@
   (string-join 
     (page-path p)
     "/"))
+
+(define (change-page-path p new-path)
+  (struct-copy p page
+	       [path new-path]))
 
 (module+ test
   (require rackunit)
