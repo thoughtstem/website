@@ -37,7 +37,7 @@
     "/"))
 
 (define (change-page-path p new-path)
-  (struct-copy p page
+  (struct-copy page p
 	       [path new-path]))
 
 (module+ test
