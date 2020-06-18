@@ -1,6 +1,7 @@
 #lang racket
 
 (provide render site-dir page-dir sub-site-dir
+	 current-path
          (rename-out [make-sub sub-site]))
 
 (require "./page.rkt" 
@@ -17,6 +18,8 @@
 (define sub-site-dir (make-parameter #f))
 
 (define should-write-prefix (make-parameter #t))
+
+(define current-path (make-parameter #f))
 
 (define (write-prefix-file! out)
   (when (and (path-prefix) 
@@ -86,7 +89,8 @@
   (make-directory* folder-path)
 
   (parameterize
-    ([page-dir folder-path])
+    ([page-dir folder-path]
+     [current-path path-parts])
     (with-output-to-file path 
                          #:exists 'replace
                          (thunk
