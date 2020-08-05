@@ -9,6 +9,8 @@
          include-bootstrap-js
          include-bootstrap-css
          include-p5-js
+	 include-font-awesome-css 
+	 font-awesome-files
          
          (all-from-out "./bootstrap/buttons.rkt")
          (all-from-out "./bootstrap/modal.rkt")
@@ -19,6 +21,7 @@
          (all-from-out "./bootstrap/nav.rkt")
          (all-from-out "./bootstrap/accordion.rkt")
          (all-from-out "./bootstrap/alerts.rkt")
+         (all-from-out "./bootstrap/font-awesome.rkt")
          (all-from-out "./main.rkt"))
 
 (require (except-in "./main.rkt" col)
@@ -32,6 +35,7 @@
          "./bootstrap/nav.rkt"
          "./bootstrap/accordion.rkt"
          "./bootstrap/alerts.rkt"
+         "./bootstrap/font-awesome.rkt"
          "./util.rkt"
          "./path-prefix.rkt"
          racket/runtime-path)
@@ -182,6 +186,10 @@
     (page css/bootstrap.min.css.map 
           (build-path css "bootstrap.min.css.map"))
     
+    (font-awesome-files)))
+
+(define (font-awesome-files)
+  (list
     (page css/fontawesome.min.css 
           (build-path css "fontawesome.min.css"))
     (page css/fontawesome-brands.min.css 
@@ -209,8 +217,7 @@
     (page webfonts/fa-solid-900.woff
           (build-path webfonts "fa-solid-900.woff"))
     (page webfonts/fa-solid-900.woff2
-          (build-path webfonts "fa-solid-900.woff2"))
-    ))
+          (build-path webfonts "fa-solid-900.woff2"))))
 
 (define (bootstrap site)
   (append
