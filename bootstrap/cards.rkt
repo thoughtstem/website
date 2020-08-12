@@ -25,10 +25,20 @@
   (src: (picsum 300 300) replace))
 
 (define/provide-extensible-element 
+  card-img
+  img
+  (class: "card-img" class-join)
+  (src: (picsum 300 300) replace))
+
+(define/provide-extensible-element 
+  card-img-overlay
+  div
+  (class: "card-img-overlay" class-join))
+
+(define/provide-extensible-element 
   card-body
   div
   (class: "card-body" class-join))
-
 
 (define/provide-extensible-element 
   card-title
