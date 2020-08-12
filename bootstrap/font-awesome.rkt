@@ -33,3 +33,6 @@
 (define/provide-fa fa-angle-left)
 (define/provide-fa fa-angle-up)
 (define/provide-fa fa-angle-down)
+
+(define/provide-fa fa-book)
+(define/provide-fa fa-envelope)
