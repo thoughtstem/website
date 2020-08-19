@@ -224,11 +224,12 @@
     (flatten site)
     (bootstrap-files)))
 
-(define (responsive-row #:columns columns #:padding [padding 3] #:d-flex? [d-flex #f] . items)
+(define (responsive-row #:columns columns #:padding [padding 3] #:d-flex? [d-flex #f] #:justify? [justify #f] . items)
   (define row-size (max 1 (min 12 (exact-round (/ 12 columns)))))
-  (apply row (map (curry div class: (~a (if d-flex "d-flex " "")
-                                        "col-lg-" row-size
-                                        " col-sm-6 col-xs-12 my-3 px-" padding)) items)))
+  (apply (if justify (curry row class: "justify-content-center") row)
+         (map (curry div class: (~a (if d-flex "d-flex " "")
+                                    "col-lg-" row-size
+                                    " col-sm-6 col-xs-12 my-" padding " px-" padding)) items)))
 
 
 
