@@ -13,6 +13,7 @@
          paras
          
          get-attribute
+         set-attribute
          has-attribute?
          has-class?
 
@@ -144,7 +145,17 @@
     (element->attributes (h1 'class: "c"
                              'id: "i"
                              "HI"))
-    '(class "c" id "i")))
+    '(class "c" id "i"))
+  
+  (check-equal?
+    (element->attributes 
+      (set-attribute
+	(h1 'class: "c"
+	    'id: "i"
+	    "HI")
+	'data-x: "this is data"))
+    '(class "c" id "i" data-x "this is data"))
+  )
 
 (define (element->kind e)
   (vector-ref (struct->vector e) 1))
@@ -407,6 +418,20 @@
     [(list? elem) (map (curry map-element f) elem)]
     [else elem]))
 
+
+(define (set-attribute elem attr-name attr-value)
+  (apply 
+    element/not-empty 
+    (flatten
+      (list 
+	(element->kind elem)
+	(add-back-colons (element->attributes elem))
+	attr-name 
+	attr-value
+	(element->contents elem)))))
+
+
+
 (module+ test
   (check-false
     (findf-element (query script)
@@ -501,8 +526,10 @@
        (document-element
 	 (read-xml (open-input-string html-string)))))))
 
+
 (module+ 
   test
+  (dynamic-require 'website #f)
   (html->element
     @~a{
     <div class="container cf">

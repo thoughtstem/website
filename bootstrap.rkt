@@ -11,7 +11,10 @@
          include-p5-js
 	 include-font-awesome-css 
 	 font-awesome-files
-         
+
+	 website-file-paths
+	 website-bootstrap-path         
+
          (all-from-out "./bootstrap/buttons.rkt")
          (all-from-out "./bootstrap/modal.rkt")
          (all-from-out "./bootstrap/cards.rkt")
@@ -43,6 +46,11 @@
 (define-runtime-path js "bootstrap/js")
 (define-runtime-path css "bootstrap/css")
 (define-runtime-path webfonts "bootstrap/webfonts")
+(define-runtime-path website-bootstrap-path "bootstrap")
+
+(define website-file-paths
+  (list js css webfonts))
+
 
 (define (include-modernizr-js)
   (list
@@ -230,6 +238,4 @@
          (map (curry div class: (~a (if d-flex "d-flex " "")
                                     "col-lg-" row-size
                                     " col-sm-6 col-xs-12 my-" padding " px-" padding)) items)))
-
-
 
