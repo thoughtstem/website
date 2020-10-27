@@ -5,19 +5,20 @@
          "./attr.rkt" 
          "./style.rkt")
 
+(define/provide-elements/not-empty image)
 (define/provide-elements/not-empty rect)
 (define/provide-elements/not-empty text)
 (define/provide-elements/not-empty circle)
 (define/provide-elements/not-empty defs)
 (define/provide-elements/not-empty path)
 (define/provide-elements/not-empty g)
-
+(define/provide-elements/not-empty use)
 
 (define/provide-attr version:)
 (define/provide-attr viewBox:)
 (define/provide-attr xmlns:)
 (define/provide-attr xmlns:xlink:)
-
+(define/provide-attr xlink:href:)
 
 (define/provide-attr d:)
 (define/provide-attr transform:)
