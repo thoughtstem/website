@@ -14,7 +14,8 @@
   (all-from-out "write-image.rkt") 
   (all-from-out "link-to.rkt")
   (all-from-out "define-extensible-element.rkt")
-  (all-from-out "ipsum.rkt"))
+  (all-from-out "ipsum.rkt")
+  (all-from-out "md.rkt"))
 
 (require scribble/html/html)
 (require scribble/html/xml)
@@ -31,6 +32,7 @@
 (require "link-to.rkt")
 (require "define-extensible-element.rkt")
 (require "ipsum.rkt")
+(require "md.rkt")
 
 (module+ main
   
