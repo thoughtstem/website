@@ -236,6 +236,6 @@
   (define row-size (max 1 (min 12 (exact-round (/ 12 columns)))))
   (apply (if justify (curry row class: "justify-content-center") row)
          (map (curry div class: (~a (if d-flex "d-flex " "")
-                                    "col-lg-" row-size
-                                    " col-sm-6 col-xs-12 my-" padding " px-" padding)) items)))
+                                    "col-12 col-md-6 col-lg-" row-size
+                                    " my-" padding " px-" padding)) items)))
 
