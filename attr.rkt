@@ -1,12 +1,22 @@
 #lang racket
 
-(provide get-attr class-join
+(provide get-attr rem-attr class-join
          define/provide-attr)
 
 (define (get-attr attr content)
   (define i (index-of content attr)) 
 
   (and i (list-ref content (add1 i))))
+
+(define (rem-attr attr content)
+  (define i (index-of content attr)) 
+
+  (if i
+      (append
+	(take content i)
+
+	(drop content (+ 2 i)))
+      content))
 
 (define (class-join val other-value)
   (if (and val other-value)
@@ -46,4 +56,9 @@
 (define/provide-attr allowfullscreen:)
 (define/provide-attr alt:)
 (define/provide-attr srcset:)
+
+;For compat between eval (in html->element) and website-js
+(define/provide-attr data-ns:)
+(define/provide-attr onClick:)
+(define/provide-attr on-click:)
 

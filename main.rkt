@@ -34,6 +34,6 @@
 (require "ipsum.rkt")
 (require "md.rkt")
 
-(module+ main
-  
- )
+;Hmmm.  Put this somewhere better...
+(define/provide-entities hellip)
+

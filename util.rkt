@@ -14,6 +14,7 @@
          
          get-attribute
          set-attribute
+	 set-contents
          has-attribute?
          has-class?
 
@@ -431,6 +432,14 @@
 	(element->contents elem)))))
 
 
+(define (set-contents elem contents)
+  (apply 
+    element/not-empty 
+    (flatten
+      (list 
+	(element->kind elem)
+	(add-back-colons (element->attributes elem))
+	contents))))
 
 (module+ test
   (check-false

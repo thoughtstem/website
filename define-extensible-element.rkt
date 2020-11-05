@@ -22,7 +22,9 @@
                              default
                              (get-attr attr: content)))
                ... 
-               content)))))
+
+               content
+	       )))))
 
 (define-syntax-rule (define/provide-extensible-element name base settings ...)
   (begin
