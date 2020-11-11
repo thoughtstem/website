@@ -36,3 +36,5 @@
 
 (define/provide-fa fa-book)
 (define/provide-fa fa-envelope)
+
+(define/provide-fa fa-windows)

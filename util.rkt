@@ -156,6 +156,15 @@
 	    "HI")
 	'data-x: "this is data"))
     '(class "c" id "i" data-x "this is data"))
+
+  (check-equal?
+    (element->attributes 
+      (set-attribute
+	(h1 'class: "c"
+	    'id: "i"
+	    "HI")
+	'class: "NEW C"))
+    '(class "NEW C" id "i"))
   )
 
 (define (element->kind e)
