@@ -7,6 +7,8 @@
 (define version "0.0")
 (define pkg-authors '(thoughtstem))
 (define raco-commands
-  '(("website-preview" (submod website/raco-tools/preview main) "runs a server in your current directory and serves everything" 100)
+  '(
+    ("website-preview" (submod website/raco-tools/preview main) "runs a server in your current directory and serves everything" 100)
     ("website-s3-deploy" (submod website/raco-tools/s3-deploy main) "Deploys to S3" 100)
+    ("website-reloadable-preview" (submod website/raco-tools/reloadable main) "runs a server in your racket project directory and racket code dynamically" 100)
     ))

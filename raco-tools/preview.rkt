@@ -1,6 +1,6 @@
 #lang racket
 
-(provide preview)
+(provide preview serve-file)
 
 (require web-server/servlet
          web-server/servlet-env)
