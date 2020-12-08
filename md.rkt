@@ -50,7 +50,7 @@
 
   (define ret 
     (html->element (~a "<div>" 
-		       (parse-md (string-join ss-with-sigils))
+		       (parse-md (string-join ss-with-sigils ""))
 		       "</div>")))
 
 
