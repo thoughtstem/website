@@ -62,3 +62,5 @@
 (define/provide-attr onClick:)
 (define/provide-attr on-click:)
 
+(define/provide-attr controls:)
+(define/provide-attr autoplay:)
